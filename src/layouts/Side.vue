@@ -8,7 +8,7 @@
                 <i :class="item.meta.icon"></i>
                 <span slot="title">{{item.meta.title}}</span>
               </template>
-              <el-menu-item-group v-for="(item,itemIndex) in item.children">
+              <el-menu-item-group v-for="(item,itemIndex) in item.children" :key="itemIndex">
                 <el-menu-item @click="() => $router.push({ path: item.path, query: $route.query })" :index="index+'-'+(itemIndex+1)">{{item.meta.title}}</el-menu-item>
               </el-menu-item-group>
           </el-submenu>

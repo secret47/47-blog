@@ -96,10 +96,12 @@ export default {
           console.log(res);
           let data = res.data;
           data.forEach(element => {
-          //更改一下时间格式
-            let createDate = data.createDate;
+            //更改一下时间格式
+            let createDate = element.createDate;
             createDate = moment(createDate).format("YYYY-MM-DD HH:mm:ss");
             element.createDate = createDate;
+            let tags = element.tags;
+            element.tagsArr = tags.split(",");
           });
           this.tableData = res.data;
         })

@@ -29,9 +29,6 @@ const router = new Router({
 		}, {
 			path: '/',
 			name: '/dashboard',
-			meta: {
-
-			},
 			hideMenu: false,
 			component: () => import(/* webpackChunkName: "about" */ './layouts/BasicLayout.vue'),
 			children: [

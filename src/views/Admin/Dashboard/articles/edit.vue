@@ -27,9 +27,10 @@
           <el-tag :key="tag" v-for="tag in tags" closable :disable-transitions="false" @close="handleClose(tag)">
             {{tag}}
           </el-tag>
-          <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
-          </el-input>
-          <!-- <el-autocomplete class="inline-input" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm" :fetch-suggestions="querySearch" :trigger-on-focus="false" @select="handleSelect"></el-autocomplete> -->
+          <!-- <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm"> @blur="handleInputConfirm" 
+          </el-input> -->
+          <el-autocomplete class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="$event.target.blur" :fetch-suggestions="querySearch" :trigger-on-focus="false" @blur="getInputData" @select="handleSelect">
+          </el-autocomplete>
           <el-button v-else class="button-new-tag" size="small" @click="showInput">新建标签</el-button>
         </div>
 
@@ -43,7 +44,7 @@
       <el-button>保存草稿</el-button>
       <el-button @click="save">发布</el-button>
     </div>
-    <el-dialog title="提示" center :visible.sync="saveDialog" width="30%" :before-close="handleClose">
+    <el-dialog title="提示" center :visible.sync="saveDialog" width="30%" :before-close="handleClosed">
       <div>
         <h1>保存成功！</h1>
       </div>
@@ -98,11 +99,74 @@ export default {
     this.getTag();
   },
   methods: {
-    getTag() {
-      getTags().then(res => {
-        console.log(res);
-        this.allTags = res.data;
+    getInputData() {
+      setTimeout(() => {
+        let input = this.inputValue;
+        console.log("得到数据", this.inputValue);
+        if (input) {
+          this.tags.push(input);
+          // console.log("创建标签成功", inputValue);
+          let data = {
+            name: input
+          };
+          let allTags = this.allTags;
+          let isArray = this.isArray(allTags, input);
+          console.log(isArray, "存在");
+          if (!isArray) {
+            //新建标签的方法;
+            newTags(data).then(res => {
+              console.log(res);
+            });
+          }
+        }
+        this.inputVisible = false;
+        this.inputValue = "";
+      }, 200);
+    },
+    //判断当前库里有没有这个标签
+    isArray(array, item) {
+      let isBoolean = false;
+      array.forEach(e => {
+        if (e.name == item) {
+          isBoolean = true;
+        }
       });
+
+      return isBoolean;
+    },
+    handleSelect(item) {
+      console.log(item, "选中");
+      this.inputValue = item.name;
+    },
+    querySearch(queryString, cb) {
+      var allTags = this.allTags;
+      var results = queryString
+        ? allTags.filter(this.createFilter(queryString))
+        : allTags;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter(queryString) {
+      return allTags => {
+        return (
+          allTags.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+        );
+      };
+    },
+    //得到所有标签
+    getTag() {
+      getTags()
+        .then(res => {
+          console.log(res);
+          let data = res.data;
+          data.forEach(element => {
+            element.value = element.name;
+          });
+          this.allTags = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     handleClose(tag) {
       this.tags.splice(this.tags.indexOf(tag), 1);
@@ -119,12 +183,25 @@ export default {
       let inputValue = this.inputValue;
       if (inputValue) {
         this.tags.push(inputValue);
-        console.log("创建标签成功", inputValue);
+        // console.log("创建标签成功", inputValue);
         let data = {
           name: inputValue
         };
-        newTags(data).then(res => {
-          console.log(res);
+        let allTags = this.allTags;
+        console.log(allTags);
+        allTags.forEach(item => {
+          console.log();
+          let name = item.name;
+          if (name === inputValue) {
+            console.log(name === inputValue);
+            return;
+          } else {
+            //新建标签的方法;
+            // newTags(data).then(res => {
+            //   console.log(res);
+            // });
+            console.log("创建成功", item);
+          }
         });
       }
       this.inputVisible = false;
@@ -198,8 +275,9 @@ export default {
                 this.value = "";
                 this.content = "<h2>I am Example</h2>";
                 this.coverImg = "";
-                this.desc="";
+                this.desc = "";
                 this.title = "";
+                this.tags = [];
               }
             });
           }
@@ -207,9 +285,10 @@ export default {
         .catch(err => {
           console.log(err);
         });
-        // this.saveDialog = true
+      // this.saveDialog = true
     },
-    handleClose(done) {
+    //这是保存成功的那个框框的关闭
+    handleClosed(done) {
       this.$confirm("确认关闭？")
         .then(_ => {
           done();
