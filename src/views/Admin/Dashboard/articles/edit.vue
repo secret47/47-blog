@@ -5,7 +5,7 @@
         <div class="coverImg">
           <!-- 文章封面图 -->
           <label class="name">封面图:</label>
-          <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="uploadSuccess" :before-upload="beforeAvatarUpload">
+          <el-upload class="avatar-uploader" action="http://127.0.0.1:3000/upload/imgs" :show-file-list="false" :on-success="uploadSuccess" :before-upload="beforeAvatarUpload">
             <el-image v-if="imageUrl" :src="imageUrl" class="avatar" fit="contain"></el-image>
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
@@ -297,9 +297,8 @@ export default {
     },
     //上传成功
     uploadSuccess(res, file) {
-      //
-      console.log("上传成功");
-      //  this.imageUrl = URL.createObjectURL(file.raw);
+      console.log(res, file);
+      this.imageUrl = res.data;
     },
     beforeAvatarUpload(file) {
       // const isJPG = file.type === 'image/jpeg';
@@ -309,7 +308,7 @@ export default {
       //   this.$message.error('上传头像图片只能是 JPG 格式!');
       // }
       if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
+        this.$message.error("上传图片大小不能超过 2MB!");
       }
       return isLt2M;
     }
@@ -339,7 +338,7 @@ export default {
 }
 .editorBox {
   width: 100%;
-  height: calc(100% - 300px);
+  height: 300px;
 }
 .but {
   width: 100%;

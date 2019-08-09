@@ -12,7 +12,7 @@ const router = new Router({
 		{
 			path: '/user',
 			name: '/user',
-			meta: {      
+			meta: {
 				title: "用户"
 			},
 			hideMenu: true,
@@ -39,7 +39,7 @@ const router = new Router({
 				{
 					path: "/dashboard/analysis",
 					name: "analysis",
-					meta: { title: "首页", icon: 'el-icon-s-home' },
+					meta: { title: "仪表盘", icon: 'el-icon-s-home' },
 					component: () =>
 						import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/Analysis.vue")
 				},
@@ -66,12 +66,6 @@ const router = new Router({
 						meta: { title: "分类管理", },
 						component: () =>
 							import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/articles/catalogs.vue")
-					}, {
-						path: "/dashboard/articles/tags",
-						name: "catalogs",
-						meta: { title: "标签管理", },
-						component: () =>
-							import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/articles/tags.vue")
 					}]
 				}, {
 					path: "/dashboard/system",
@@ -84,6 +78,12 @@ const router = new Router({
 						meta: { title: "个人中心", },
 						component: () =>
 							import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/system/center.vue")
+					},{
+						path: "/dashboard/system/setting",
+						name: "setting",
+						meta: { title: "系统设置", },
+						component: () =>
+							import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/system/setting.vue")
 					}]
 				}
 			]

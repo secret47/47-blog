@@ -31,7 +31,7 @@ export default {
   },
   watch: {
     "$route.path": function(val) {
-      console.log(val)
+      // console.log(val)
     },
   },
   mounted() {
