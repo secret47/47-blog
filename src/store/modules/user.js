@@ -11,6 +11,7 @@ const user = {
         },
         set_info: (state, userInfo) => {
             state.userInfo = userInfo
+            console.log(state.userInfo)
         }
     },
     actions: {
@@ -22,7 +23,7 @@ const user = {
                     commit('set_token', data.token);
                     window.localStorage.setItem('uid', data.uid);
                     window.localStorage.setItem('token', data.token);
-                    resolve()
+                    resolve(res)
                 }).catch(err => {
                     reject(err)
                 })
@@ -34,9 +35,9 @@ const user = {
                 getInfo(id).then(res => {
                     const data = res.data;
                     const jsonData = JSON.stringify(data);
-                    commit('set_info', data)
+                    commit('set_info', jsonData)
                     window.localStorage.setItem('userInfo', jsonData);
-                    resolve()
+                    resolve(res)
                 }).catch(err => {
                     reject(err)
                 })

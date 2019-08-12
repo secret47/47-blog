@@ -7,13 +7,37 @@
         </ul>
         <div class="containers">
           <section v-if="currentTab == 0">
-            <div class="userAvatar">
-              <el-image :src="avatarUrl" :fit="fit" class="imgs"></el-image>
-              <el-button>修改头像</el-button>
-            </div>
             <div class="info">
-              <el-form ref="userInfo" :model="userInfo" label-width="80px">
-
+              <el-form label-position="left" label-width="80px" :model="userInfo" v-if="userInfo">
+                <el-form-item class="userAvatar">
+                  <el-image :src="userInfo.avatarUrl ||avatarUrl" :fit="fit" class="imgs"></el-image>
+                  <el-upload class="avatar-uploader" action="http://127.0.0.1:3000/upload/imgs" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                    <el-button type="primary">修改头像</el-button>
+                  </el-upload>
+                </el-form-item>
+                <el-form-item label="名称">
+                  <el-input v-model="userInfo.nickname"></el-input>
+                </el-form-item>
+                <el-form-item label="性别">
+                  <el-radio-group v-model="userInfo.gender" @change="changeGender">
+                    <el-radio :label="0">男</el-radio>
+                    <el-radio :label="1">女</el-radio>
+                    <el-radio :label="2">保密</el-radio>
+                  </el-radio-group>
+                </el-form-item>
+                <el-form-item label="年龄">
+                  <el-input v-model="userInfo.age"></el-input>
+                </el-form-item>
+                <el-form-item label="生日">
+                  <el-date-picker v-model="userInfo.birthday" type="date" placeholder="选择日期">
+                  </el-date-picker>
+                </el-form-item>
+                <el-form-item label="描述">
+                  <el-input type="textarea" row=3 v-model="userInfo.description"></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="saveInfo">保存更新</el-button>
+                </el-form-item>
               </el-form>
             </div>
           </section>
@@ -25,13 +49,11 @@
   </div>
 </template>
 <script>
+import { mapState, mapGetters } from "vuex";
 export default {
   data() {
     return {
-      userInfo: [],
-      avatarUrl: "",
       fit: "fill",
-      radio: null,
       changeItems: [
         {
           id: 0,
@@ -49,13 +71,16 @@ export default {
           class: ""
         }
       ],
-      currentTab: 0
+      avatarUrl: require("../../../../assets/logo.png"),
+      currentTab: 0,
+      userInfo: {}
     };
   },
+  watch: {},
+  computed: {},
   mounted() {
-    this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    console.log(JSON.parse(localStorage.getItem("userInfo")));
-    this.avatarUrl = JSON.parse(localStorage.getItem("userInfo")).avatarUrl;
+    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    this.userInfo = userInfo;
   },
   methods: {
     //切换tab
@@ -72,19 +97,25 @@ export default {
       this.changeItems = changeItems;
     },
     handleAvatarSuccess(res, file) {
-      console.log(res, "上传");
+      let userInfo = this.userInfo;
+      userInfo.avatarUrl = res.data;
+      console.log(res);
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
       const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
       if (!isLt2M) {
         this.$message.error("上传头像图片大小不能超过 2MB!");
       }
-      return isJPG && isLt2M;
+      return isLt2M;
+    },
+    changeGender(e) {
+      console.log(e);
+      let userInfo = this.userInfo;
+      userInfo.gender = e;
+    },
+    saveInfo() {
+      let userInfo = this.userInfo;
+      console.log(userInfo);
     }
   }
 };
@@ -109,6 +140,7 @@ export default {
   list-style: none;
   padding: 0;
   font-size: 14px;
+  background: #dedede;
 }
 .tabItems li {
   height: 50px;
@@ -127,6 +159,7 @@ export default {
   height: 100%;
   /* background: pink; */
   margin-left: 20px;
+  overflow: auto;
 }
 /* 
   个人资料
@@ -140,9 +173,7 @@ export default {
   width: 130px;
   height: 130px;
   position: relative;
-  top: 50%;
   border-radius: 10px;
-  transform: translateY(-50%);
 }
 
 .userAvatar .imgs:hover {
@@ -153,9 +184,17 @@ export default {
   width: 130px;
   height: 40px;
   text-align: center;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
   margin-left: 20px;
+}
+.info {
+  width: 350px;
+}
+.el-upload{
+  width: 100%;
+  height: 100%;
+}
+.avatar-uploader {
+  float: right;
+  height: 100%;
 }
 </style>

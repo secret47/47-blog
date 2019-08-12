@@ -24,3 +24,12 @@ export const getInfo = (uid) => {
         }
     })
 }
+
+//更改用户资料
+export const changeUserInfo = (data) => {
+    return request({
+        url: '/user/login',
+        method: 'post',
+        data
+    })
+}
