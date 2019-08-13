@@ -50,6 +50,8 @@
 </template>
 <script>
 import { mapState, mapGetters } from "vuex";
+import { changeUserInfo } from "../../../../api/user";
+import moment from "moment";
 export default {
   data() {
     return {
@@ -115,7 +117,31 @@ export default {
     },
     saveInfo() {
       let userInfo = this.userInfo;
+      userInfo.birthday = moment(userInfo.birthday)
+        .format("YYYY-MM-DD HH:mm:ss")
+        .valueOf();
       console.log(userInfo);
+      changeUserInfo(userInfo)
+        .then(res => {
+          console.log(res);
+          this.$message({
+            message: "保存成功！",
+            type: "success"
+          });
+          this.getUserInfo(userInfo.uid);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    //得到用户资料
+    getUserInfo(uid) {
+      this.$store
+        .dispatch("GetUserInfo", uid)
+        .then(res => {})
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
@@ -189,7 +215,7 @@ export default {
 .info {
   width: 350px;
 }
-.el-upload{
+.el-upload {
   width: 100%;
   height: 100%;
 }

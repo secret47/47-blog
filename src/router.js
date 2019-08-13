@@ -78,7 +78,7 @@ const router = new Router({
 						meta: { title: "个人中心", },
 						component: () =>
 							import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/system/center.vue")
-					},{
+					}, {
 						path: "/dashboard/system/setting",
 						name: "setting",
 						meta: { title: "系统设置", },
@@ -96,6 +96,18 @@ const router = new Router({
 			},
 			hideMenu: true,
 			component: () => import(/* webpackChunkName: "about" */ './views/Blog/home.vue'),
+			children: [
+
+			]
+		},
+		{
+			path: '/blog/article',
+			name: 'article',
+			meta: {
+				title: ""
+			},
+			hideMenu: true,
+			component: () => import(/* webpackChunkName: "about" */ './views/Blog/article.vue'),
 		}
 
 	]
