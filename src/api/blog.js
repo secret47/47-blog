@@ -21,3 +21,23 @@ export const getArticle = (aid) => {
         }
     })
 }
+
+export const getPre = (aid) => {
+    return request({
+        url: '/blog/getPre',
+        method: 'get',
+        params: {
+            aid
+        }
+    })
+}
+
+export const getNext = (aid) => {
+    return request({
+        url: '/blog/getNext',
+        method: 'get',
+        params: {
+            aid
+        }
+    })
+}
