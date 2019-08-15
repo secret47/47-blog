@@ -108,6 +108,14 @@ const router = new Router({
 			},
 			hideMenu: true,
 			component: () => import(/* webpackChunkName: "about" */ './views/Blog/article.vue'),
+		}, {
+			path: '/blog/catalog',
+			name: 'catalog',
+			meta: {
+				title: ""
+			},
+			hideMenu: true,
+			component: () => import(/* webpackChunkName: "about" */ './views/Blog/catalog.vue'),
 		}
 
 	]

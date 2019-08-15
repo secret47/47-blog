@@ -3,7 +3,6 @@
     <blog-side></blog-side>
     <div class="mainContain">
       <div class="head">
-
       </div>
       <div class="topNews"></div>
       <div class="articles">
@@ -22,7 +21,7 @@
               <img :src="item.coverImg" @click="lookArticle(item.aid)" class="cur">
             </div>
             <div class="description">{{item.description}}</div>
-            <router-link :to="{path:'blog/article',query:{aid:item.aid}}" class="readMore">阅读全文(,,•́ . •̀,,)</router-link>
+            <router-link :to="{path:'/blog/article',query:{aid:item.aid}}" class="readMore">阅读全文(,,•́ . •̀,,)</router-link>
           </div>
           <div class="other">
             <div class="classfiy">
@@ -108,6 +107,7 @@ export default {
 .mainContain {
   width: calc(100% - 120px);
   height: 100%;
+  margin-left: 120px;
 }
 /* 
 头部新闻
