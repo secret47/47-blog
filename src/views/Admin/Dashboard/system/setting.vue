@@ -1,10 +1,19 @@
 <template>
-    <div>系统设置</div>
+    <div>
+        <!-- <mavon-editor v-model="value"/> -->
+        <div>
+            <div>选择顶部大图（博客首页）</div>
+        </div> 
+    </div>
 </template>
 
 <script>
 export default {
-
+    data(){
+        return{
+            value:""
+        }
+    }
 }
 </script>
 

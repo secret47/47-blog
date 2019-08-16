@@ -19,7 +19,7 @@
       <div class="tab_item">
         <router-link :to="{path:'/blog/resume'}" class="curPoint">
           <i class="el-icon-document"></i>
-          <span>简历</span>
+          <span>关于</span>
         </router-link>
       </div>
       <div class="tab_item">
@@ -28,6 +28,7 @@
           <span>搜索</span>
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -43,6 +44,7 @@ export default {};
   background: #ffffff;
   position: fixed;
   top: 100px;
+  left: 0;
 }
 .tab {
   width: 100px;
@@ -81,5 +83,9 @@ export default {};
   cursor: pointer;
   text-decoration: none;
   color: #000;
+}
+
+.curPoint:hover {
+  color: #41b883;
 }
 </style>

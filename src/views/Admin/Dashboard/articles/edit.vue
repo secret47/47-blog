@@ -38,7 +38,8 @@
       </el-col>
     </el-row>
     <div class="editorBox">
-      <quill-editor ref="myTextEditor" v-model="content" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" @ready="onEditorReady($event)"></quill-editor>
+      <!-- <quill-editor ref="myTextEditor" v-model="content" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" @ready="onEditorReady($event)"></quill-editor> -->
+      <mavon-editor v-model="content" @imgAdd="imgAdd" @imgDel="imgDel" />
     </div>
     <div class="but">
       <el-button>保存草稿</el-button>
@@ -64,11 +65,12 @@ import {
   newTags,
   getTags
 } from "../../../../api/articles.js";
+import { months } from "moment";
 
 export default {
   data() {
     return {
-      content: "<h2>I am Example</h2>",
+      content: "",
       editorOption: {
         // something config
       },
@@ -94,6 +96,7 @@ export default {
     let aid = query.aid;
     if (aid) {
       this.getArticles(aid);
+      this.currentId = aid;
     }
     this.getCatalogs();
     this.getTag();
@@ -265,26 +268,33 @@ export default {
         return;
       }
       console.log(data, "获取的数据");
-      createArticle(data)
-        .then(res => {
-          console.log(res);
-          if (res.code == "ok") {
-            this.$alert("创建成功", "提示", {
-              confirmButtonText: "确定",
-              callback: action => {
-                this.value = "";
-                this.content = "<h2>I am Example</h2>";
-                this.coverImg = "";
-                this.desc = "";
-                this.title = "";
-                this.tags = [];
-              }
-            });
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      let aid = this.currentId;
+      console.log(aid);
+      if (aid) {
+        let data = { title, cid, author, desc, coverImg, tags, content, aid };
+      } else {
+        createArticle(data)
+          .then(res => {
+            console.log(res);
+            if (res.code == "ok") {
+              this.$alert("创建成功", "提示", {
+                confirmButtonText: "确定",
+                callback: action => {
+                  this.value = "";
+                  this.content = "<h2>I am Example</h2>";
+                  this.coverImg = "";
+                  this.desc = "";
+                  this.title = "";
+                  this.tags = [];
+                }
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+
       // this.saveDialog = true
     },
     //这是保存成功的那个框框的关闭
@@ -311,6 +321,12 @@ export default {
         this.$message.error("上传图片大小不能超过 2MB!");
       }
       return isLt2M;
+    },
+    imgAdd(pos, $file) {
+      console.log(pos, $file);
+    },
+    imgDel(pos) {
+      delete this.img_file[pos];
     }
   }
 };
@@ -319,6 +335,15 @@ export default {
 .top {
   width: 100%;
   height: 300px;
+}
+.mainContainer {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+.mainBox {
+  width: 100%;
+  min-height: calc(100% - 50px);
 }
 .title {
   width: 100%;
@@ -338,7 +363,7 @@ export default {
 }
 .editorBox {
   width: 100%;
-  height: 300px;
+  min-height: 300px;
 }
 .but {
   width: 100%;

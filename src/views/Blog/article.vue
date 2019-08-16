@@ -9,11 +9,15 @@
         <div class="time">
           <i class="el-icon-date icon"></i>{{articles.createDate}}
         </div>
+        <div class="saveContent">
+            <div>注意：本文为杨小花原创，转载记得联系我哦~</div>
+        </div>
         <div class="coverImg" v-if="articles.coverImg">
           <img :src="articles.coverImg" alt="">
         </div>
         <div class="container" v-html="articles.content">
         </div>
+
         <div class="nextPre">
           <div class="pre">
             <p>上一篇:</p>
@@ -73,6 +77,11 @@ import {
 } from "../../api/blog.js";
 import moment from "moment";
 import blogSide from "../../components/blogSide";
+import "../../markdown.css";
+import marked from "marked";
+import hljs from "highlight.js";
+import "highlight.js/styles/monokai-sublime.css";
+
 export default {
   components: {
     blogSide
@@ -97,7 +106,7 @@ export default {
   watch: {
     $route: function(newV, oldV) {
       let aid = newV.query.aid;
-      this.currentId = aid
+      this.currentId = aid;
       this.getDetail(aid);
     }
   },
@@ -105,6 +114,21 @@ export default {
   mounted() {
     let aid = this.$route.query.aid;
     this.currentId = aid;
+    marked.setOptions({
+      renderer: new marked.Renderer(),
+      highlight: function(code) {
+        return hljs.highlightAuto(code).value;
+      },
+      pedantic: false,
+      gfm: true,
+      tables: true,
+      breaks: false,
+      sanitize: false,
+      smartLists: true,
+      smartypants: false,
+      xhtml: false
+    });
+
     this.getDetail(aid);
   },
   methods: {
@@ -115,9 +139,14 @@ export default {
           data.createDate = moment(data.createDate).format(
             "YYYY-MM-DD HH:mm:ss"
           );
+          let content = data.content;
+          data.content = marked(content);
           this.articles = data;
+
+          document.title = data.title + "|你好，我是杨小花";
+
           this.showDetail = true;
-          console.log(this.articles);
+
           this.getPreAndNext(aid);
           this.getRemarks(aid);
         })
@@ -155,20 +184,22 @@ export default {
         });
     },
     getRemarks(aid) {
-      getRemark(aid).then(res => {
-        console.log("....",res)
-        let remarkData = res.data;
-        console.log(remarkData)
-        remarkData.forEach(item => {
-          item.createDate = moment(item.createDate).format(
-            "YYYY-MM-DD HH:mm:ss"
-          );
+      getRemark(aid)
+        .then(res => {
+          console.log("....", res);
+          let remarkData = res.data;
+          console.log(remarkData);
+          remarkData.forEach(item => {
+            item.createDate = moment(item.createDate).format(
+              "YYYY-MM-DD HH:mm:ss"
+            );
+          });
+          this.remarkData = remarkData;
+          this.remarkTotal = remarkData.length;
+        })
+        .catch(err => {
+          console.log(err);
         });
-        this.remarkData = remarkData;
-        this.remarkTotal = remarkData.length;
-      }).catch(err=>{
-        console.log(err)
-      })
     },
     getFocus() {
       this.showConfirm = true;
@@ -205,9 +236,9 @@ export default {
             setTimeout(() => {
               console.log(currentId);
               this.getRemarks(currentId);
-              this.commentValue = ""
-              this.commentUser = ""
-              this.commentConcat = ""
+              this.commentValue = "";
+              this.commentUser = "";
+              this.commentConcat = "";
             }, 300);
           }
         })
@@ -331,5 +362,18 @@ export default {
   line-height: 30px;
   padding-bottom: 10px;
   font-size: 15px;
+}
+.saveContent{
+  width: 100%;
+  height: 60px;
+}
+.saveContent div{
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left: 5px solid #dedede;
 }
 </style>

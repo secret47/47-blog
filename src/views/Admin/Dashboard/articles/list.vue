@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-import { getArticlesList, getArticle } from "../../../../api/articles.js";
+import { getArticlesList, getArticle,deleteArticles } from "../../../../api/articles.js";
 import moment from "moment";
 export default {
   data() {
@@ -122,13 +122,33 @@ export default {
     },
     edit(index, row) {
       console.log(index, row);
-      let aid = index + 1;
+      let aid = row.aid;
       this.$router.push({
         path: "/dashboard/articles/edit?aid=" + aid
       });
     },
+    //删除指定文章
     del(index, row) {
       console.log(index, row);
+      let aid = row.aid;
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            deleteArticles(aid).then(res=>{
+              if(res.code == 'ok'){
+                this.$message({
+                  type: 'success',
+                  message: '删除成功!'
+                });
+                this.getList(this.currentPage, this.pageSize);
+              }
+            })
+          
+          }).catch(() => {
+           
+          });
     },
     change(index) {
       console.log(index);

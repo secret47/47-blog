@@ -10,6 +10,14 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+import 'highlight.js/styles/xcode.css'
+// use
+Vue.use(mavonEditor)
+
+
+
 Vue.use(ElementUI);
 
 Vue.use(VueQuillEditor)

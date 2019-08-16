@@ -89,7 +89,7 @@ export const getTags = (query) => {
 //删除文章
 export const deleteArticles = (data) => {
     return request({
-        url: '/articles/delete',
+        url: '/articles/del',
         method: 'post',
         data
     })

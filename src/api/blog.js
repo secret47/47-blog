@@ -59,3 +59,14 @@ export const getRemark = (aid) => {
         }
     })
 }
+
+
+export const getCataList = () => {
+    return request({
+        url: '/blog/getAllList',
+        method: 'get',
+        params: {
+            
+        }
+    })
+}

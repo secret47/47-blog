@@ -116,6 +116,15 @@ const router = new Router({
 			},
 			hideMenu: true,
 			component: () => import(/* webpackChunkName: "about" */ './views/Blog/catalog.vue'),
+		},
+		{
+			path: '/blog/resume',
+			name: 'resume',
+			meta: {
+				title: ""
+			},
+			hideMenu: true,
+			component: () => import(/* webpackChunkName: "about" */ './views/Blog/resume.vue'),
 		}
 
 	]
@@ -127,6 +136,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
+	window.scrollTo(0,0)
 	NProgress.done()
 })
 
