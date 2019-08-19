@@ -6,11 +6,6 @@
         <div class="bigTitle">归档</div>
         <div class="item_list" v-for="(item,index) in articleList" :key="index">
           <div class="year">{{item.year}}</div>
-          <!-- <ul>
-            <li v-for="(item,index) in item.articleList" :key="index">
-              {{item.title}}
-            </li>
-          </ul> -->
           <el-timeline class="lists">
             <el-timeline-item v-for="(item,index) in item.articleList" :key="index">
               <span class="date">{{item.createDate}}</span>
@@ -38,6 +33,7 @@ export default {
     };
   },
   mounted() {
+    document.title = "归档|你好，我是杨小花";
     this.getList();
   },
   methods: {
@@ -49,8 +45,11 @@ export default {
           data = data.reverse();
           data.forEach(item => {
             let articleList = item.articleList;
+            articleList = articleList.reverse();
             articleList.forEach(e => {
-              e.createDate = moment(item.createDate).format("MM/DD");
+              if (e.createDate) {
+                e.createDate = moment(e.createDate).format("MM/DD");
+              }
             });
           });
           this.articleList = data;
@@ -63,7 +62,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main {
   width: 100%;
   height: 100%;
@@ -78,6 +77,15 @@ export default {
   max-width: 900px;
   margin: 0 auto;
 }
+
+@media screen and (max-width: 1200px) {
+.mainInfo {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+}
+
 .mainInfo .bigTitle {
   height: 100px;
   line-height: 100px;
@@ -100,10 +108,10 @@ export default {
   font-weight: 800;
   color: #49beb7;
 }
-.el-timeline{
+.el-timeline {
   width: 100%;
 }
-.el-timeline-item{
-  width: 100%
+.el-timeline-item {
+  width: 100%;
 }
 </style>

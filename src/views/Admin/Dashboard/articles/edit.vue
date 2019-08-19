@@ -39,7 +39,7 @@
     </el-row>
     <div class="editorBox">
       <!-- <quill-editor ref="myTextEditor" v-model="content" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" @ready="onEditorReady($event)"></quill-editor> -->
-      <mavon-editor v-model="content" @imgAdd="imgAdd" @imgDel="imgDel" />
+      <mavon-editor ref="md" v-model="content" @imgAdd="imgAdd" @imgDel="imgDel" />
     </div>
     <div class="but">
       <el-button>保存草稿</el-button>
@@ -63,7 +63,8 @@ import {
   createArticle,
   getArticle,
   newTags,
-  getTags
+  getTags,
+  addImg
 } from "../../../../api/articles.js";
 import { months } from "moment";
 
@@ -220,6 +221,11 @@ export default {
           this.title = data.title;
           this.value = data.cid;
           this.content = data.content;
+          this.desc = data.description;
+          this.coverImg = data.coverImg;
+          let tagsData = data.tags;
+          let tasg = tagsData.split(",");
+          this.tags = tasg;
         })
         .catch(err => {
           console.log(err);
@@ -322,8 +328,22 @@ export default {
       }
       return isLt2M;
     },
-    imgAdd(pos, $file) {
-      console.log(pos, $file);
+    //上传图片，md编辑器里面的
+    imgAdd(pos, file) {
+      var formdata = new FormData();
+      formdata.append("file", file);
+      // console.log(formdata);
+      addImg(formdata)
+        .then(res => {
+          console.log(res);
+          if (res.code == "ok") {
+            let imgUrl = res.data;
+            this.$refs.md.$img2Url(pos, imgUrl);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     imgDel(pos) {
       delete this.img_file[pos];
@@ -331,7 +351,7 @@ export default {
   }
 };
 </script>
-<style class="scoped">
+<style scoped>
 .top {
   width: 100%;
   height: 300px;
@@ -367,8 +387,13 @@ export default {
 }
 .but {
   width: 100%;
-  height: 50px;
+  height: 80px;
   text-align: right;
+}
+.but button {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .quill-editor {
   height: 100%;
@@ -380,16 +405,17 @@ export default {
   width: 100%;
   height: 100%;
 }
-
-.avatar-uploader .el-upload {
+.avatar-uploader {
+  max-width: 300px;
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
   cursor: pointer;
   height: 160px;
   position: relative;
   overflow: hidden;
+    text-align:center;
 }
-.avatar-uploader .el-upload:hover {
+.avatar-uploader:hover {
   border-color: #409eff;
 }
 .avatar-uploader-icon {

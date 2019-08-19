@@ -33,3 +33,4 @@ export const changeUserInfo = (data) => {
         data
     })
 }
+

@@ -66,7 +66,17 @@ export const getCataList = () => {
         url: '/blog/getAllList',
         method: 'get',
         params: {
-            
+
         }
+    })
+}
+
+
+//得到文章分类
+export const getCatalogs = (query) => {
+    return request({
+        url: '/articles/getCatalogs',
+        method: 'get',
+        params: query
     })
 }

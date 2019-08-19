@@ -78,16 +78,22 @@ export default {
   }
 };
 </script>
-<style scope>
-#app {
+<style scoped>
+/* app {
   background: linear-gradient(to right, #c9f4fd, #f7e0ce);
+} */
+.container{
+    background: linear-gradient(to right, #c9f4fd, #f7e0ce);
 }
 .login {
-  width: 400px;
-  height: 500px;
-  background: #ffffff;
-  margin: 0 auto;
-  border-radius: 10px;
+    width: 400px;
+    height: 500px;
+    background: #fff;
+    margin: 0 auto;
+    border-radius: 10px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .loginBox {
   width: 320px;

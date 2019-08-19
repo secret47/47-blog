@@ -11,7 +11,6 @@ const user = {
         },
         set_info: (state, userInfo) => {
             state.userInfo = userInfo
-            console.log(state.userInfo)
         }
     },
     actions: {

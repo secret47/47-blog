@@ -6,7 +6,7 @@
       </div>
       <div class="tab_item">
         <router-link :to="{path:'/blog'}" class="curPoint">
-          <i class="el-icon-location-outline"></i>
+          <i class="el-icon-odometer"></i>
           <span>首页</span>
         </router-link>
       </div>
@@ -17,13 +17,19 @@
         </router-link>
       </div>
       <div class="tab_item">
+        <router-link :to="{path:'/blog/catalog'}" class="curPoint">
+          <i class="el-icon-box"></i>
+          <span>分类</span>
+        </router-link>
+      </div>
+      <div class="tab_item">
         <router-link :to="{path:'/blog/resume'}" class="curPoint">
           <i class="el-icon-document"></i>
           <span>关于</span>
         </router-link>
       </div>
       <div class="tab_item">
-        <div class="curPoint">
+        <div class="curPoint" @click="showSearch">
           <i class="el-icon-search"></i>
           <span>搜索</span>
         </div>
@@ -34,7 +40,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+    showSearch(){
+      
+    }
+  }
+};
 </script>
 
 <style>

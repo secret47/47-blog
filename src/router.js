@@ -7,8 +7,17 @@ import 'nprogress/nprogress.css'
 Vue.use(Router)
 
 const router = new Router({
-	mode: "history",
+	mode: "hash",
 	routes: [
+		{
+			path: '/',
+			name: 'blog',
+			meta: {
+				title: "博客"
+			},
+			hideMenu: true,
+			component: () => import(/* webpackChunkName: "about" */ './views/Blog/home.vue'),
+		},
 		{
 			path: '/user',
 			name: '/user',
@@ -27,15 +36,11 @@ const router = new Router({
 				component: () => import(/* webpackChunkName: "about" */ './views/User/Login.vue')
 			}]
 		}, {
-			path: '/',
+			path: '/dashboard',
 			name: '/dashboard',
 			hideMenu: false,
 			component: () => import(/* webpackChunkName: "about" */ './layouts/BasicLayout.vue'),
 			children: [
-				{
-					path: "/",
-					redirect: "/dashboard/analysis"
-				},
 				{
 					path: "/dashboard/analysis",
 					name: "analysis",
@@ -136,7 +141,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
-	window.scrollTo(0,0)
+	window.scrollTo(0, 0)
 	NProgress.done()
 })
 

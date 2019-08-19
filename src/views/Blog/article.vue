@@ -3,19 +3,19 @@
     <blog-side></blog-side>
     <div class="mainContain">
       <div class="articleInfo">
-        <div class="title">
+        <div class="blogtitle">
           {{articles.title}}
         </div>
-        <div class="time">
+        <div class="blogtime">
           <i class="el-icon-date icon"></i>{{articles.createDate}}
         </div>
         <div class="saveContent">
-            <div>注意：本文为杨小花原创，转载记得联系我哦~</div>
+          <div>注意：本文为杨小花原创，转载记得联系我哦~</div>
         </div>
         <div class="coverImg" v-if="articles.coverImg">
           <img :src="articles.coverImg" alt="">
         </div>
-        <div class="container" v-html="articles.content">
+        <div class="blogcontainer" v-html="articles.content">
         </div>
 
         <div class="nextPre">
@@ -77,9 +77,10 @@ import {
 } from "../../api/blog.js";
 import moment from "moment";
 import blogSide from "../../components/blogSide";
-import "../../markdown.css";
+
 import marked from "marked";
 import hljs from "highlight.js";
+
 import "highlight.js/styles/monokai-sublime.css";
 
 export default {
@@ -249,8 +250,8 @@ export default {
   }
 };
 </script>
-
-<style>
+<style src="../../markdown.css" scoped></style>
+<style scoped>
 .main {
   width: 100%;
   height: 100%;
@@ -267,18 +268,18 @@ export default {
   min-height: 500px;
   margin-top: 40px;
 }
-.title {
+.blogtitle {
   height: 50px;
   line-height: 50px;
   font-size: 30px;
 }
-.time {
+.blogtime {
   height: 30px;
   line-height: 30px;
   font-size: 13px;
   color: #888;
 }
-.container {
+.blogcontainer {
   margin-top: 40px;
   min-height: 450px;
   border-bottom: 1px solid #dfdfdf;
@@ -363,11 +364,11 @@ export default {
   padding-bottom: 10px;
   font-size: 15px;
 }
-.saveContent{
+.saveContent {
   width: 100%;
   height: 60px;
 }
-.saveContent div{
+.saveContent div {
   height: 40px;
   line-height: 40px;
   padding-left: 10px;

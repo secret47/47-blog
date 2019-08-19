@@ -22,8 +22,8 @@ export const delCatalog = (id) => {
     return request({
         url: '/articles/delCatalog',
         method: 'get',
-        params:{
-            id:id
+        params: {
+            id: id
         }
     })
 }
@@ -101,5 +101,15 @@ export const getArticlesList = (query) => {
         url: '/articles/getList',
         method: 'get',
         params: query
+    })
+}
+
+
+export const addImg = (data) => {
+    return request({
+        url: '/upload/imgs',
+        method: 'post',
+        headers: { "Content-Type": "multipart/form-data" },
+        data,
     })
 }
