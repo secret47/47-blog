@@ -2,9 +2,7 @@
   <div class="main">
     <blog-side></blog-side>
     <div class="mainContain">
-      <div class="mainInfo">
-
-      </div>
+      <div class="mainInfo"></div>
     </div>
   </div>
 </template>
@@ -16,16 +14,10 @@ export default {
     blogSide
   },
   data() {
-    return {
-
-    };
+    return {};
   },
-  mounted() {
-
-  },
-  methods: {
-   
-  }
+  mounted() {},
+  methods: {}
 };
 </script>
 
@@ -44,5 +36,4 @@ export default {
   max-width: 900px;
   margin: 0 auto;
 }
-
 </style>

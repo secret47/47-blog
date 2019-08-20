@@ -3,25 +3,36 @@
     <div class="articles">
       <section v-for="item in articleList" :key="item.aid" class="artitem">
         <div class="article-title">
-          <img class="notice" src="../../assets/hua.png" alt="">
-          <span class="cur" @click="lookArticle(item.aid)">{{item.title}} </span>
+          <img class="notice" src="../../assets/hua.png" alt="" />
+          <span class="cur" @click="lookArticle(item.aid)"
+            >{{ item.title }}
+          </span>
         </div>
         <div class="time">
           <span @click="lookArticle(item.aid)" class="cur">
-            <i class="el-icon-date icon"></i>{{item.createDate}}
+            <i class="el-icon-date icon"></i>{{ item.createDate }}
           </span>
         </div>
         <div class="articleContains">
           <div class="imgs" v-if="item.coverImg">
-            <img :src="item.coverImg" @click="lookArticle(item.aid)" class="cur">
+            <img
+              :src="item.coverImg"
+              @click="lookArticle(item.aid)"
+              class="cur"
+            />
           </div>
-          <div class="description">{{item.description}}</div>
-          <router-link :to="{path:'/blog/article',query:{aid:item.aid}}" class="readMore">阅读全文(,,•́ . •̀,,)</router-link>
+          <div class="description">{{ item.description }}</div>
+          <router-link
+            :to="{ path: '/blog/article', query: { aid: item.aid } }"
+            class="readMore"
+            >阅读全文(,,•́ . •̀,,)</router-link
+          >
         </div>
         <div class="other">
           <div class="classfiy">
             <i class="el-icon-collection-tag icon"></i>
-            {{item.tags}}</div>
+            {{ item.tags }}
+          </div>
         </div>
       </section>
       <div class="more">
@@ -36,7 +47,6 @@
 
 <script>
 import { getArticlesList } from "../../api/blog.js";
-import { getInfo } from "../../api/system.js";
 import moment from "moment";
 export default {
   data() {
@@ -48,7 +58,6 @@ export default {
   },
   mounted() {
     this.getList(this.currentPage, this.pageSize);
-
   },
   methods: {
     //得到文章列表
@@ -65,7 +74,6 @@ export default {
           this.articleList = data;
         })
         .catch(err => {
-          console.log(err);
         });
     },
     lookArticle(aid) {
@@ -81,7 +89,6 @@ export default {
 </script>
 
 <style scoped>
-
 /* 
 头部新闻
  */

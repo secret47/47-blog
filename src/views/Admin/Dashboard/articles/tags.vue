@@ -1,13 +1,9 @@
 <template>
-    <div>标签页面</div>
+  <div>标签页面</div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -34,7 +34,6 @@ export default {
   methods: {
     //上传成功
     uploadSuccess(res, file) {
-      console.log(res, file);
       this.imageUrl = res.data;
     },
     beforeAvatarUpload(file) {
@@ -60,8 +59,7 @@ export default {
         });
         return;
       }
-      console.log(data);
-      setInfo(data).then(res => {
+      setInfo(data).then(() => {
         this.$message({
           type: "success",
           message: "设置成功!"
@@ -79,6 +77,7 @@ export default {
 .item {
   margin-bottom: 20px;
 }
+
 .header-title {
   height: 50px;
   line-height: 50px;
@@ -92,12 +91,13 @@ export default {
   height: 160px;
   position: relative;
   overflow: hidden;
-  text-align:center;
+  text-align: center;
 }
 
 .avatar-uploader:hover {
   border-color: #409eff;
 }
+
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
@@ -106,11 +106,13 @@ export default {
   line-height: 160px;
   text-align: center;
 }
+
 .avatar {
   width: 100%;
   height: 160px;
   display: block;
 }
+
 .el-upload {
   width: 100%;
 }
@@ -119,7 +121,8 @@ export default {
   width: 100%;
   height: 200px;
 }
-.inputtext{
-  max-width:300px
+
+.inputtext {
+  max-width: 300px;
 }
 </style>

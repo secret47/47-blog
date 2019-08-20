@@ -4,66 +4,93 @@
     <div class="mainContain">
       <div class="articleInfo">
         <div class="blogtitle">
-          {{articles.title}}
+          {{ articles.title }}
         </div>
         <div class="blogtime">
-          <i class="el-icon-date icon"></i>{{articles.createDate}}
+          <i class="el-icon-date icon"></i>{{ articles.createDate }}
         </div>
         <div class="saveContent">
           <div>注意：本文为杨小花原创，转载记得联系我哦~</div>
         </div>
         <div class="coverImg" v-if="articles.coverImg">
-          <img :src="articles.coverImg" alt="">
+          <img :src="articles.coverImg" alt="" />
         </div>
-        <div class="blogcontainer" v-html="articles.content">
-        </div>
+        <div class="blogcontainer" v-html="articles.content"></div>
 
         <div class="nextPre">
           <div class="pre">
             <p>上一篇:</p>
-            <p v-if="preNoData" class="noData">{{preData.message}}</p>
-            <router-link :to="{path:'/blog/article',query:{aid:preData.aid}}" v-else>{{preData.title}}</router-link>
+            <p v-if="preNoData" class="noData">{{ preData.message }}</p>
+            <router-link
+              :to="{ path: '/blog/article', query: { aid: preData.aid } }"
+              v-else
+              >{{ preData.title }}</router-link
+            >
           </div>
           <div class="next">
             <p>下一篇:</p>
-            <p v-if="nextNoData" class="noData">{{nextData.message}}</p>
-            <router-link :to="{path:'/blog/article',query:{aid:nextData.aid}}" v-else>{{nextData.title}}</router-link>
+            <p v-if="nextNoData" class="noData">{{ nextData.message }}</p>
+            <router-link
+              :to="{ path: '/blog/article', query: { aid: nextData.aid } }"
+              v-else
+              >{{ nextData.title }}</router-link
+            >
           </div>
         </div>
       </div>
       <div class="comment">
-        <p>{{remarkTotal}}条评论</p>
+        <p>{{ remarkTotal }}条评论</p>
         <el-divider></el-divider>
         <div class="input_Box">
-          <el-input type="textarea" v-model="commentValue" rows=5 placeholder="给我一个评论，还你一个么么哒(๑•̀ㅂ•́)و✧" @blur="getBlur" @focus="getFocus">
+          <el-input
+            type="textarea"
+            v-model="commentValue"
+            rows="5"
+            placeholder="给我一个评论，还你一个么么哒(๑•̀ㅂ•́)و✧"
+            @blur="getBlur"
+            @focus="getFocus"
+          >
           </el-input>
           <div class="user com_item" v-show="showConfirm">
             <span>用户名：</span>
-            <el-input type="text" v-model="commentUser" placeholder="你叫什么呀">
+            <el-input
+              type="text"
+              v-model="commentUser"
+              placeholder="你叫什么呀"
+            >
             </el-input>
           </div>
           <div class="concact com_item" v-show="showConfirm">
             <span>联系方式：</span>
-            <el-input type="text" v-model="commentConcat" placeholder="可以给一个联系方式哦">
+            <el-input
+              type="text"
+              v-model="commentConcat"
+              placeholder="可以给一个联系方式哦"
+            >
             </el-input>
           </div>
           <div class="btns com_item" v-show="showConfirm">
-            <el-button size="mini" type="primary" @click="postComment">提交</el-button>
+            <el-button size="mini" type="primary" @click="postComment"
+              >提交</el-button
+            >
           </div>
         </div>
-        <el-divider v-if="remarkTotal!=0"></el-divider>
+        <el-divider v-if="remarkTotal != 0"></el-divider>
         <div class="remarkBox">
-          <div class="remarkItem" v-for="(item,index) in remarkData" :key="index">
+          <div
+            class="remarkItem"
+            v-for="(item, index) in remarkData"
+            :key="index"
+          >
             <div class="first">
-              <span class="name">{{item.nickname}}</span>
-              <span class="date"> 发表于{{item.createDate}}</span>
+              <span class="name">{{ item.nickname }}</span>
+              <span class="date"> 发表于{{ item.createDate }}</span>
             </div>
-            <div class="remarkCon">{{item.container}}</div>
+            <div class="remarkCon">{{ item.container }}</div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -152,7 +179,7 @@ export default {
           this.getRemarks(aid);
         })
         .catch(err => {
-          console.log(err);
+          ;
         });
     },
     //得到上下页
@@ -199,7 +226,7 @@ export default {
           this.remarkTotal = remarkData.length;
         })
         .catch(err => {
-          console.log(err);
+          ;
         });
     },
     getFocus() {
@@ -244,13 +271,13 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
+          ;
         });
     }
   }
 };
 </script>
-<style src="../../markdown.css" scoped></style>
+<style src="../../markdown.css"></style>
 <style scoped>
 .main {
   width: 100%;

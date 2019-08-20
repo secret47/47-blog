@@ -1,38 +1,42 @@
 <template>
-	<el-header class="header">
-		<div class="userInfo">
-			<div class="headerIcons">
-				<i class="el-icon-search"></i>
-			</div>
-			<div class="headerIcons">
-				<i class="el-icon-message"></i>
-			</div>
-			<el-dropdown trigger="click" class="users">
-				<div class="el-dropdown-link userAvatar">
-					<div class="items">
-						<el-avatar class="avatarImg" :size="size" :src="userInfo.avatarUrl || circleUrl"></el-avatar>
-					</div>
-					<div class="items">
-						<span class="nickname">Hi,{{userInfo.nickname}}!</span>
-					</div>
-					<div class="item headerIcons">
-						<i class="el-icon-arrow-down"></i>
-					</div>
-				</div>
-				<el-dropdown-menu slot="dropdown">
-					<el-dropdown-item command="person">个人中心</el-dropdown-item>
-					<el-dropdown-item command="setting">系统设置</el-dropdown-item>
-					<el-dropdown-item command="logout"> 退出</el-dropdown-item>
-				</el-dropdown-menu>
-			</el-dropdown>
-		</div>
-	</el-header>
+  <el-header class="header">
+    <div class="userInfo">
+      <div class="headerIcons">
+        <i class="el-icon-search"></i>
+      </div>
+      <div class="headerIcons">
+        <i class="el-icon-message"></i>
+      </div>
+      <el-dropdown trigger="click" class="users">
+        <div class="el-dropdown-link userAvatar">
+          <div class="items">
+            <el-avatar
+              class="avatarImg"
+              :size="size"
+              :src="userInfo.avatarUrl || circleUrl"
+            ></el-avatar>
+          </div>
+          <div class="items">
+            <span class="nickname">Hi,{{ userInfo.nickname }}!</span>
+          </div>
+          <div class="item headerIcons">
+            <i class="el-icon-arrow-down"></i>
+          </div>
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="person">个人中心</el-dropdown-item>
+          <el-dropdown-item command="setting">系统设置</el-dropdown-item>
+          <el-dropdown-item command="logout"> 退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
+  </el-header>
 </template>
 <script>
 export default {
   data() {
     let userInfo = localStorage.getItem("userInfo");
-    console.log(userInfo)
+    console.log(userInfo);
     userInfo = JSON.parse(userInfo);
     return {
       userInfo,

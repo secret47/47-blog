@@ -5,15 +5,23 @@
       <my-header></my-header>
       <el-main class="mainContainer">
         <div class="headBread">
-          <el-breadcrumb class="app-breadcrumb" separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item v-for="(item)  in levelList" :key="item.path" v-if="item.meta.title">
-              <router-link :to="item.redirect||item.path">{{item.meta.title}}</router-link>
+          <el-breadcrumb
+            class="app-breadcrumb"
+            separator-class="el-icon-arrow-right"
+          >
+            <el-breadcrumb-item
+              v-for="item in levelList"
+              :key="item.path"
+              v-if="item.meta.title"
+            >
+              <router-link :to="item.redirect || item.path">{{
+                item.meta.title
+              }}</router-link>
             </el-breadcrumb-item>
           </el-breadcrumb>
         </div>
 
-        <router-view class="mainBox">
-        </router-view>
+        <router-view class="mainBox"> </router-view>
       </el-main>
       <el-footer>Footer</el-footer>
     </el-container>
@@ -90,9 +98,9 @@ export default {
 .headBread {
   height: 40px;
 }
-.el-breadcrumb{
+.el-breadcrumb {
   position: relative;
   top: 50%;
-  transform: translateY(-50%)
+  transform: translateY(-50%);
 }
 </style>

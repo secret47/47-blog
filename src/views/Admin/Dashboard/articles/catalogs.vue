@@ -2,33 +2,56 @@
   <div>
     <div class="head">
       <el-button type="primary" @click="add">添加分类</el-button>
-      <el-button type="danger" @click="delAll" v-show="selected">删除选中</el-button>
+      <el-button type="danger" @click="delAll" v-show="selected"
+        >删除选中</el-button
+      >
     </div>
     <div class="box">
-      <el-table ref="multipleTable" :data="data" tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange" @select-all="selectAll">
-        <el-table-column type="selection" width="55">
-        </el-table-column>
-        <el-table-column prop="id" label="id" width="100">
-        </el-table-column>
+      <el-table
+        ref="multipleTable"
+        :data="data"
+        tooltip-effect="dark"
+        style="width: 100%"
+        @selection-change="handleSelectionChange"
+        @select-all="selectAll"
+      >
+        <el-table-column type="selection" width="55"> </el-table-column>
+        <el-table-column prop="id" label="id" width="100"> </el-table-column>
         <el-table-column prop="cname" label="分类名称" width="180">
         </el-table-column>
-        <el-table-column prop="cdesc" label="分类描述">
-        </el-table-column>
+        <el-table-column prop="cdesc" label="分类描述"> </el-table-column>
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
-            <el-button size="mini" @click="edit(scope.$index, scope.row)">编辑</el-button>
-            <el-button size="mini" type="danger" @click="del(scope.$index, scope.row)">删除</el-button>
+            <el-button size="mini" @click="edit(scope.$index, scope.row)"
+              >编辑</el-button
+            >
+            <el-button
+              size="mini"
+              type="danger"
+              @click="del(scope.$index, scope.row)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
     </div>
     <el-dialog :title="editText" :visible.sync="showEdit" width="40%" center>
-      <el-form :model="catalogs" label-position="left" ref="catalogs" :rules="rules">
+      <el-form
+        :model="catalogs"
+        label-position="left"
+        ref="catalogs"
+        :rules="rules"
+      >
         <el-form-item label="分类名称" prop="cname">
           <el-input v-model="catalogs.cname" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="分类描述" prop="cdesc">
-          <el-input type="textarea" :rows="3" v-model="catalogs.cdesc" autocomplete="off"></el-input>
+          <el-input
+            type="textarea"
+            :rows="3"
+            v-model="catalogs.cdesc"
+            autocomplete="off"
+          ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -114,7 +137,7 @@ export default {
           this.data = res.data;
         })
         .catch(err => {
-          console.log(err);
+          ;
         });
     },
     handleSelectionChange(val) {
@@ -150,7 +173,7 @@ export default {
               this.getCatalogs();
             })
             .catch(err => {
-              console.log(err);
+              ;
             });
         })
         .catch(() => {
@@ -188,7 +211,7 @@ export default {
           }
         })
         .catch(err => {
-          console.log(err);
+          ;
         });
     }
   }

@@ -1,13 +1,9 @@
 <template>
-    <div>创建文章成功</div>
+  <div>创建文章成功</div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>

@@ -4,12 +4,23 @@
     <div class="mainContain">
       <div class="mainInfo">
         <div class="bigTitle">归档</div>
-        <div class="item_list" v-for="(item,index) in articleList" :key="index">
-          <div class="year">{{item.year}}</div>
+        <div
+          class="item_list"
+          v-for="(item, index) in articleList"
+          :key="index"
+        >
+          <div class="year">{{ item.year }}</div>
           <el-timeline class="lists">
-            <el-timeline-item v-for="(item,index) in item.articleList" :key="index">
-              <span class="date">{{item.createDate}}</span>
-              <router-link class="name" :to="{path:'/blog/article',query:{aid:item.aid}}">{{item.title}}</router-link>
+            <el-timeline-item
+              v-for="(item, index) in item.articleList"
+              :key="index"
+            >
+              <span class="date">{{ item.createDate }}</span>
+              <router-link
+                class="name"
+                :to="{ path: '/blog/article', query: { aid: item.aid } }"
+                >{{ item.title }}</router-link
+              >
             </el-timeline-item>
           </el-timeline>
         </div>
@@ -40,7 +51,6 @@ export default {
     getList() {
       getCataList()
         .then(res => {
-          console.log(res.data);
           let data = res.data;
           data = data.reverse();
           data.forEach(item => {
@@ -54,9 +64,7 @@ export default {
           });
           this.articleList = data;
         })
-        .catch(err => {
-          console.log(err);
-        });
+        .catch();
     }
   }
 };
@@ -79,11 +87,10 @@ export default {
 }
 
 @media screen and (max-width: 1200px) {
-.mainInfo {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
+  .mainInfo {
+    max-width: 600px;
+    margin: 0 auto;
+  }
 }
 
 .mainInfo .bigTitle {

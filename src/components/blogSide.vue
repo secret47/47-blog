@@ -2,28 +2,28 @@
   <div class="leftSide">
     <div class="tab">
       <div class="logo">
-        <img src="../assets/logo.png" alt="">
+        <img src="../assets/logo.png" alt="" />
       </div>
       <div class="tab_item">
-        <router-link :to="{path:'/blog'}" class="curPoint">
+        <router-link :to="{ path: '/blog' }" class="curPoint">
           <i class="el-icon-odometer"></i>
           <span>首页</span>
         </router-link>
       </div>
       <div class="tab_item">
-        <router-link :to="{path:'/blog/catalog'}" class="curPoint">
+        <router-link :to="{ path: '/blog/catalog' }" class="curPoint">
           <i class="el-icon-folder"></i>
           <span>归档</span>
         </router-link>
       </div>
       <div class="tab_item">
-        <router-link :to="{path:'/blog/catalog'}" class="curPoint">
+        <router-link :to="{ path: '/blog/catalog' }" class="curPoint">
           <i class="el-icon-box"></i>
           <span>分类</span>
         </router-link>
       </div>
       <div class="tab_item">
-        <router-link :to="{path:'/blog/resume'}" class="curPoint">
+        <router-link :to="{ path: '/blog/resume' }" class="curPoint">
           <i class="el-icon-document"></i>
           <span>关于</span>
         </router-link>
@@ -34,22 +34,17 @@
           <span>搜索</span>
         </div>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data(){
-    return{
-
-    }
+  data() {
+    return {};
   },
-  methods:{
-    showSearch(){
-      
-    }
+  methods: {
+    showSearch() {}
   }
 };
 </script>
@@ -72,7 +67,7 @@ export default {
   width: 100%;
   height: 100px;
   text-align: center;
-  margin-bottom: 40px;
+  /* margin-bottom: 40px; */
 }
 .logo img {
   width: 80px;

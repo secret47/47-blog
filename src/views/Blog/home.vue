@@ -2,8 +2,10 @@
   <div class="main">
     <blog-side></blog-side>
     <div class="mainContain">
-      <div class="head" :style="{backgroundImage: 'url(' + (bgImg ) + ')'}">
-      </div>
+      <div
+        class="head"
+        :style="{ backgroundImage: 'url(' + bgImg + ')' }"
+      ></div>
       <blog-index></blog-index>
     </div>
   </div>
@@ -35,7 +37,6 @@ export default {
           document.title = webInfo.title;
         })
         .catch(err => {
-          console.log(err);
         });
     }
   }

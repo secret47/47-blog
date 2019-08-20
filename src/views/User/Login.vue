@@ -1,12 +1,24 @@
 <template>
   <div class="login">
-    <el-form :model="form" ref="form" :rules="fromRules" label-width="80px" label-position="top" class="loginBox">
+    <el-form
+      :model="form"
+      ref="form"
+      :rules="fromRules"
+      label-width="80px"
+      label-position="top"
+      class="loginBox"
+    >
       <div class="title">登录</div>
       <el-form-item label="用户名" prop="username">
         <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="form.password" show-password placeholder="请输入密码"> </el-input>
+        <el-input
+          v-model="form.password"
+          show-password
+          placeholder="请输入密码"
+        >
+        </el-input>
       </el-form-item>
       <el-form-item>
         <el-link class="forget" href="#" target="_blank">忘记密码?</el-link>
@@ -51,11 +63,9 @@ export default {
   },
   methods: {
     login() {
-      let user = this.form;
       this.$store
         .dispatch("Login", this.form)
         .then(res => {
-          console.log(res);
           let data = res.data;
           this.getUserInfo(data.uid);
           this.$router.push({
@@ -63,17 +73,14 @@ export default {
           });
         })
         .catch(err => {
-          console.log(err);
         });
     },
     //得到用户资料
     getUserInfo(uid) {
       this.$store
         .dispatch("GetUserInfo", uid)
-        .then(res => {})
-        .catch(err => {
-          console.log(err);
-        });
+        .then()
+        .catch();
     }
   }
 };
@@ -82,18 +89,18 @@ export default {
 /* app {
   background: linear-gradient(to right, #c9f4fd, #f7e0ce);
 } */
-.container{
-    background: linear-gradient(to right, #c9f4fd, #f7e0ce);
+.container {
+  background: linear-gradient(to right, #c9f4fd, #f7e0ce);
 }
 .login {
-    width: 400px;
-    height: 500px;
-    background: #fff;
-    margin: 0 auto;
-    border-radius: 10px;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+  width: 400px;
+  height: 500px;
+  background: #fff;
+  margin: 0 auto;
+  border-radius: 10px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 .loginBox {
   width: 320px;

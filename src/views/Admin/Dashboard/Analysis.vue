@@ -1,13 +1,9 @@
 <template>
-    <div>
-        fenxi 
-    </div>
+  <div>
+    fenxi
+  </div>
 </template>
 <script>
-export default {
-    
-}
+export default {};
 </script>
-<style>
-    
-</style>
+<style></style>
