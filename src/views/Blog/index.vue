@@ -73,8 +73,7 @@ export default {
           });
           this.articleList = data;
         })
-        .catch(err => {
-        });
+        .catch(err => {});
     },
     lookArticle(aid) {
       this.$router.push({

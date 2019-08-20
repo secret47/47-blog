@@ -140,9 +140,7 @@ export default {
         .then(res => {
           this.article = res.data;
         })
-        .catch(err => {
-          ;
-        });
+        .catch(err => {});
     },
     edit(index, row) {
       let aid = row.aid;
@@ -171,8 +169,7 @@ export default {
         })
         .catch(() => {});
     },
-    change(index) {
-    },
+    change(index) {},
     //搜索
     search() {
       //按照id来选择调用哪个接口  1 作者，2 标题， 3 分类

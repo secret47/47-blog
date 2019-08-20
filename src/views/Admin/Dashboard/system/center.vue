@@ -165,18 +165,14 @@ export default {
           });
           this.getUserInfo(userInfo.uid);
         })
-        .catch(err => {
-          ;
-        });
+        .catch(err => {});
     },
     //得到用户资料
     getUserInfo(uid) {
       this.$store
         .dispatch("GetUserInfo", uid)
         .then(res => {})
-        .catch(err => {
-          ;
-        });
+        .catch(err => {});
     }
   }
 };

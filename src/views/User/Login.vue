@@ -72,8 +72,7 @@ export default {
             path: this.redirect || "/dashboard/analysis"
           });
         })
-        .catch(err => {
-        });
+        .catch(err => {});
     },
     //得到用户资料
     getUserInfo(uid) {

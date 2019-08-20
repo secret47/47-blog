@@ -136,9 +136,7 @@ export default {
           console.log(res);
           this.data = res.data;
         })
-        .catch(err => {
-          ;
-        });
+        .catch(err => {});
     },
     handleSelectionChange(val) {
       this.multipleSelection = val;
@@ -172,9 +170,7 @@ export default {
               }
               this.getCatalogs();
             })
-            .catch(err => {
-              ;
-            });
+            .catch(err => {});
         })
         .catch(() => {
           this.$message({
@@ -210,9 +206,7 @@ export default {
             });
           }
         })
-        .catch(err => {
-          ;
-        });
+        .catch(err => {});
     }
   }
 };

@@ -4,8 +4,19 @@
       <el-col :span="12">
         <div class="item">
           <div class="header-title">选择顶部大图（博客首页）</div>
-          <el-upload class="avatar-uploader" action="http://127.0.0.1:3000/upload/imgs" :show-file-list="false" :on-success="uploadSuccess" :before-upload="beforeAvatarUpload">
-            <el-image v-if="imageUrl" :src="imageUrl" class="avatar" fit="contain"></el-image>
+          <el-upload
+            class="avatar-uploader"
+            action="http://127.0.0.1:3000/upload/imgs"
+            :show-file-list="false"
+            :on-success="uploadSuccess"
+            :before-upload="beforeAvatarUpload"
+          >
+            <el-image
+              v-if="imageUrl"
+              :src="imageUrl"
+              class="avatar"
+              fit="contain"
+            ></el-image>
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </div>

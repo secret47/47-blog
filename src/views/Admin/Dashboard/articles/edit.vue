@@ -233,9 +233,7 @@ export default {
           });
           this.allTags = res.data;
         })
-        .catch(err => {
-          ;
-        });
+        .catch(err => {});
     },
     handleClose(tag) {
       this.tags.splice(this.tags.indexOf(tag), 1);
@@ -292,9 +290,7 @@ export default {
           let tasg = tagsData.split(",");
           this.tags = tasg;
         })
-        .catch(err => {
-          ;
-        });
+        .catch(err => {});
     },
 
     //得到分类
@@ -305,9 +301,7 @@ export default {
           this.options = data;
           this.cid = data[0].id;
         })
-        .catch(err => {
-          ;
-        });
+        .catch(err => {});
     },
     onEditorBlur(editor) {},
     onEditorFocus(editor) {},
@@ -361,9 +355,7 @@ export default {
               });
             }
           })
-          .catch(err => {
-            ;
-          });
+          .catch(err => {});
       }
 
       // this.saveDialog = true
@@ -406,9 +398,7 @@ export default {
             this.$refs.md.$img2Url(pos, imgUrl);
           }
         })
-        .catch(err => {
-          ;
-        });
+        .catch(err => {});
     },
     imgDel(pos) {
       delete this.img_file[pos];

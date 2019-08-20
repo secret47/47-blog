@@ -36,8 +36,7 @@ export default {
           this.bgImg = webInfo.topImg;
           document.title = webInfo.title;
         })
-        .catch(err => {
-        });
+        .catch(err => {});
     }
   }
 };

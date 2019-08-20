@@ -170,17 +170,12 @@ export default {
           let content = data.content;
           data.content = marked(content);
           this.articles = data;
-
           document.title = data.title + "|你好，我是杨小花";
-
           this.showDetail = true;
-
           this.getPreAndNext(aid);
           this.getRemarks(aid);
         })
-        .catch(err => {
-          ;
-        });
+        .catch(err => {});
     },
     //得到上下页
     getPreAndNext(aid) {
@@ -226,7 +221,9 @@ export default {
           this.remarkTotal = remarkData.length;
         })
         .catch(err => {
-          ;
+          if (err.code == "failed") {
+            this.remarkData = [];
+          }
         });
     },
     getFocus() {
@@ -270,9 +267,7 @@ export default {
             }, 300);
           }
         })
-        .catch(err => {
-          ;
-        });
+        .catch(err => {});
     }
   }
 };
