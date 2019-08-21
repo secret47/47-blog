@@ -119,37 +119,57 @@ const router = new Router({
       hideMenu: true,
       component: () =>
         import(/* webpackChunkName: "about" */ "./views/Blog/home.vue"),
-      children: []
+      children: [
+        {
+          path: "/blog",
+          name: "blog",
+          meta: {
+            title: ""
+          },
+          hideMenu: true,
+          component: () =>
+            import(/* webpackChunkName: "about" */ "./views/Blog/index.vue"),
+        },
+        {
+        path: "/blog/article",
+        name: "article",
+        meta: {
+          title: ""
+        },
+        hideMenu: true,
+        component: () =>
+          import(/* webpackChunkName: "about" */ "./views/Blog/article.vue")
+      },
+      {
+        path: "/blog/catalog",
+        name: "catalog",
+        meta: {
+          title: ""
+        },
+        hideMenu: true,
+        component: () =>
+          import(/* webpackChunkName: "about" */ "./views/Blog/catalog.vue")
+      },
+      {
+        path: "/blog/resume",
+        name: "resume",
+        meta: {
+          title: ""
+        },
+        hideMenu: true,
+        component: () =>
+          import(/* webpackChunkName: "about" */ "./views/Blog/resume.vue")
+      }]
     },
     {
-      path: "/blog/article",
-      name: "article",
+      path: "/404",
+      name: "404",
       meta: {
-        title: ""
+        title: "404"
       },
       hideMenu: true,
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Blog/article.vue")
-    },
-    {
-      path: "/blog/catalog",
-      name: "catalog",
-      meta: {
-        title: ""
-      },
-      hideMenu: true,
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Blog/catalog.vue")
-    },
-    {
-      path: "/blog/resume",
-      name: "resume",
-      meta: {
-        title: ""
-      },
-      hideMenu: true,
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/Blog/resume.vue")
+        import(/* webpackChunkName: "about" */ "./views/404.vue")
     }
   ]
 });

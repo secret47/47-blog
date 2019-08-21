@@ -9,6 +9,9 @@
         <div class="blogtime">
           <i class="el-icon-date icon"></i>{{ articles.createDate }}
         </div>
+        <div class="blogTags">
+          {{articles.tags}}
+        </div>
         <div class="saveContent">
           <div>注意：本文为杨小花原创，转载记得联系我哦~</div>
         </div>
@@ -184,9 +187,11 @@ export default {
           if (res.code == "ok") {
             this.preNoData = false;
           }
-          this.preData = res.data;
+          let data = res.data;
+          this.preData = data[0];
         })
         .catch(err => {
+          console.log(err)
           if (err.code == "failed") {
             this.preNoData = true;
           }
@@ -197,9 +202,11 @@ export default {
           if (res.code == "ok") {
             this.nextNoData = false;
           }
-          this.nextData = res.data;
+          let data = res.data;
+          this.nextData = data[0];
         })
         .catch(err => {
+          console.log(err)
           if (err.code == "failed") {
             this.nextNoData = true;
           }
@@ -398,5 +405,9 @@ export default {
   top: 50%;
   transform: translateY(-50%);
   border-left: 5px solid #dedede;
+}
+.blogTags{
+  height:50px;
+  line-height:50px;
 }
 </style>

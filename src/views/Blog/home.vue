@@ -2,42 +2,28 @@
   <div class="main">
     <blog-side></blog-side>
     <div class="mainContain">
-      <div
-        class="head"
-        :style="{ backgroundImage: 'url(' + bgImg + ')' }"
-      ></div>
-      <blog-index></blog-index>
+      <router-view></router-view>
     </div>
   </div>
 </template>
 <script>
 import blogSide from "../../components/blogSide";
 import blogIndex from "../../views/Blog/index";
-import { getInfo } from "../../api/system.js";
-
+import axios from 'axios'
 export default {
   components: {
     blogSide,
-    blogIndex
+    blogIndex,
   },
   data() {
     return {
-      bgImg: ""
+    showDialog:false
     };
   },
   mounted() {
-    this.getwebInfo();
   },
   methods: {
-    getwebInfo() {
-      getInfo()
-        .then(res => {
-          let webInfo = res.data;
-          this.bgImg = webInfo.topImg;
-          document.title = webInfo.title;
-        })
-        .catch(err => {});
-    }
+    
   }
 };
 </script>

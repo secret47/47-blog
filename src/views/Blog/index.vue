@@ -1,6 +1,7 @@
 <template>
   <div class="mainInfo">
     <div class="articles">
+      <div class="head" :style="{ backgroundImage: 'url(' + bgImg + ')' }"></div>
       <section v-for="item in articleList" :key="item.aid" class="artitem">
         <div class="article-title">
           <img class="notice" src="../../assets/hua.png" alt="" />
@@ -48,15 +49,20 @@
 <script>
 import { getArticlesList } from "../../api/blog.js";
 import moment from "moment";
+import { getInfo } from "../../api/system.js";
+
 export default {
   data() {
     return {
       currentPage: 1,
       pageSize: 10,
-      articleList: []
+      articleList: [],
+      bgImg: ""
+
     };
   },
   mounted() {
+    this.getwebInfo();
     this.getList(this.currentPage, this.pageSize);
   },
   methods: {
@@ -82,6 +88,15 @@ export default {
           aid: aid
         }
       });
+    },
+      getwebInfo() {
+      getInfo()
+        .then(res => {
+          let webInfo = res.data;
+          this.bgImg = webInfo.topImg;
+          document.title = webInfo.title;
+        })
+        .catch(err => {});
     }
   }
 };

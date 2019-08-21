@@ -1,5 +1,12 @@
 module.exports = {
-  publicPath: "./", //打包后的位置(如果不设置这个静态资源会报404)
+  publicPath: process.env.NODE_ENV === "production" ? "./" : "/",
   outputDir: "dist", //打包后的目录名称
-  assetsDir: "static" //静态资源目录名称
+  assetsDir: "static", //静态资源目录名称
+  devServer:{
+    open:true,
+    host:'localhost',
+    port:'8080',
+    https:false,
+    hotOnly:true
+  }
 };

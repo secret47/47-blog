@@ -35,16 +35,43 @@
         </div>
       </div>
     </div>
+      <el-drawer
+        title=""
+        :visible.sync="drawer"
+        :direction="direction"
+        :before-close="handleClose">
+        <div class="drawContain">
+          <div class="searchBox">
+          <el-input type="text" placeholder="请输入搜索内容" suffix-icon="el-icon-search"></el-input>
+          <el-button type="primary">搜索</el-button>
+          </div>
+        </div>
+      </el-drawer>
+
   </div>
 </template>
 
 <script>
+import '../animate.css'
 export default {
   data() {
-    return {};
+    return {
+      drawer:false,
+      direction: 'ttb',
+    };
   },
   methods: {
-    showSearch() {}
+    showSearch(){
+      this.drawer = true;
+    },
+    handleClose(){
+      this.$confirm('确认关闭？')
+          .then(res => {
+            console.log(res)
+            this.drawer = false
+          })
+          .catch(_ => {});
+    }
   }
 };
 </script>
@@ -99,5 +126,66 @@ export default {
 
 .curPoint:hover {
   color: #41b883;
+}
+
+.hidenShow{
+  position:fixed;
+  width:100%;
+  height:200px;
+  top:-200px;
+  left:0;
+  background:#ffffff;
+}
+
+
+@-webkit-keyframes slideInDown {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+
+.showDisplay{
+  position:fixed;
+  width:100%;
+  height:200px;
+  top:0;
+  left:0;
+  background:#000;
+  -webkit-animation-name: slideInDown;
+  animation-name: slideInDown;
+}
+
+.drawContain{
+  width:85%;
+  margin:0 auto;
+}
+.searchBox{
+  display:flex
+}
+.searchBox button{
+  width:100px;
+  text-align:center;
+  margin-left:20px;
 }
 </style>
