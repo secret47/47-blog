@@ -17,3 +17,10 @@ export const getInfo = () => {
     method: "get"
   });
 };
+
+export const getNewRemark = () => {
+  return request({
+    url: "/systems/newRemark",
+    method: "get"
+  });
+}

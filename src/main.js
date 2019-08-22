@@ -13,6 +13,10 @@ import "quill/dist/quill.bubble.css";
 import mavonEditor from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import "highlight.js/styles/xcode.css";
+
+import echarts from 'echarts'
+
+Vue.prototype.$echarts = echarts 
 // use
 Vue.use(mavonEditor);
 

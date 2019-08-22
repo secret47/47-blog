@@ -9,21 +9,26 @@
 <script>
 import blogSide from "../../components/blogSide";
 import blogIndex from "../../views/Blog/index";
-import axios from 'axios'
+import axios from "axios";
+
 export default {
   components: {
     blogSide,
-    blogIndex,
+    blogIndex
   },
   data() {
     return {
-    showDialog:false
+      showDialog: false
     };
   },
   mounted() {
+    this.getIp();
   },
   methods: {
-    
+    getIp() {
+      var ip = returnCitySN["cip"];
+      console.log(ip);
+    }
   }
 };
 </script>

@@ -36,7 +36,7 @@
 export default {
   data() {
     let userInfo = localStorage.getItem("userInfo");
-    console.log(userInfo);
+    // console.log(userInfo);
     userInfo = JSON.parse(userInfo);
     return {
       userInfo,

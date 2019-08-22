@@ -4,7 +4,7 @@ import axios from "axios";
 //得到所有文章
 export const getArticlesList = query => {
   return request({
-    url: "/articles/getList",
+    url: "/blog/getList",
     method: "get",
     params: query
   });
