@@ -13,6 +13,7 @@
     "echarts": "^4.2.1",
     "element-ui": "^2.11.1",
     "highlight.js": "^9.15.9",
+    "lodash": "^4.17.15",
     "marked": "^0.7.0",
     "mavon-editor": "^2.7.5",
     "moment": "^2.24.0",

@@ -1,37 +1,20 @@
 <template>
   <el-aside width="250px" class="aside">
     <div class="logo"></div>
-    <el-menu
-      :default-active="defaultActive"
-      unique-opened
-      v-for="(item, index) in menuData"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-    >
+    <el-menu :default-active="defaultActive" unique-opened v-for="(item, index) in menuData" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :key="index">
       <template v-for="(item, index) in item.children">
-        <el-submenu :index="index + 1 + ''" v-if="item.children">
+        <el-submenu :index="index + 1 + ''" v-if="item.children" :key="index">
           <template slot="title">
             <i :class="item.meta.icon"></i>
             <span slot="title">{{ item.meta.title }}</span>
           </template>
-          <el-menu-item-group
-            v-for="(item, itemIndex) in item.children"
-            :key="itemIndex"
-          >
-            <el-menu-item
-              @click="
+          <el-menu-item-group v-for="(item, itemIndex) in item.children" :key="itemIndex">
+            <el-menu-item @click="
                 () => $router.push({ path: item.path, query: $route.query })
-              "
-              :index="index + '-' + (itemIndex + 1)"
-              >{{ item.meta.title }}</el-menu-item
-            >
+              " :index="index + '-' + (itemIndex + 1)">{{ item.meta.title }}</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-menu-item
-          v-else
-          @click="() => $router.push({ path: item.path, query: $route.query })"
-        >
+        <el-menu-item v-else :key="item.path" @click="() => $router.push({ path: item.path, query: $route.query })">
           <i :class="item.meta.icon"></i>
           <span slot="title">{{ item.meta.title }}</span>
         </el-menu-item>
@@ -40,6 +23,7 @@
   </el-aside>
 </template>
 <script>
+import { check } from "../util/auth.js";
 export default {
   data() {
     const menuData = this.getMenuData(this.$router.options.routes);
@@ -57,8 +41,14 @@ export default {
   methods: {
     getMenuData(routes = []) {
       const menuData = [];
+
       for (let item of routes) {
+        //先把符合条件的router提取出来
+        if (item.meta && item.meta.auth && !check(item.meta.auth)) {
+          continue;
+        }
         if (item.name && !item.hideMenu) {
+        // console.log(item)
           const newItem = { ...item };
           delete newItem.children;
           if (item.children) {

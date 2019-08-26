@@ -85,10 +85,7 @@ export default {
 };
 </script>
 <style scoped>
-/* app {
-  background: linear-gradient(to right, #c9f4fd, #f7e0ce);
-} */
-.container {
+#app {
   background: linear-gradient(to right, #c9f4fd, #f7e0ce);
 }
 .login {
@@ -97,9 +94,6 @@ export default {
   background: #fff;
   margin: 0 auto;
   border-radius: 10px;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
 }
 .loginBox {
   width: 320px;

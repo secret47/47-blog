@@ -1,9 +1,10 @@
-import { login, getInfo } from "../../api/user";
+import { login, getInfo,getRole } from "../../api/user";
 
 const user = {
   state: {
     token: "",
-    userInfo: []
+    userInfo: [],
+    userRole:""
   },
   mutations: {
     set_token: (state, token) => {
@@ -11,6 +12,9 @@ const user = {
     },
     set_info: (state, userInfo) => {
       state.userInfo = userInfo;
+    },
+    set_role:(state,userRole) =>{
+      state.userRole = userRole
     }
   },
   actions: {
@@ -43,6 +47,19 @@ const user = {
           })
           .catch(err => {
             reject(err);
+          });
+      });
+    },
+    getUserRole({commit},id){
+      return new Promise((resolve, reject) => {
+        getRole(id)
+          .then(res => {
+            console.log(res)
+            const data = res.data;
+            localStorage.setItem('role',data)
+          })
+          .catch(err => {
+            console.log(err);
           });
       });
     }

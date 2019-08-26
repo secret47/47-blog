@@ -2,11 +2,14 @@ import request from "../util/request";
 import axios from "axios";
 
 //得到所有文章
-export const getArticlesList = query => {
+export const getArticlesList = (currentPage,pageSize) => {
   return request({
     url: "/blog/getList",
     method: "get",
-    params: query
+    params: {
+      currentPage,
+      pageSize
+    }
   });
 };
 

@@ -7,8 +7,8 @@ axios.defaults.baseURL = "http://127.0.0.1:3000";
 // request拦截器
 axios.interceptors.request.use(
   config => {
-    if (store.getters.token) {
-      // config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+    if (localStorage.getItem('token')) {
+      config.headers['token'] = localStorage.getItem('token')// 让每个请求携带自定义token 请根据实际情况自行修改
     }
 
     return config;

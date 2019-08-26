@@ -31,3 +31,14 @@ export const changeUserInfo = data => {
     data
   });
 };
+
+
+export const getRole = uid => {
+  return request({
+    url: "/user/getRoles",
+    method: "get",
+    params: {
+      uid
+    }
+  })
+}
