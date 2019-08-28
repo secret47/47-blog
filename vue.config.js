@@ -8,5 +8,5 @@ module.exports = {
     port:'8080',
     https:false,
     hotOnly:true
-  }
+  },
 };

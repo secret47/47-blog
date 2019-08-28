@@ -2,7 +2,7 @@ import axios from "axios";
 import store from "../store/store";
 
 // axios.defaults.timeout = 5000;
-axios.defaults.baseURL = "http://127.0.0.1:3000";
+axios.defaults.baseURL = "http://101.37.173.223:3000/";
 
 // request拦截器
 axios.interceptors.request.use(
