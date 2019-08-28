@@ -10,7 +10,7 @@
           <i class="el-icon-date icon"></i>{{ articles.createDate }}
         </div>
         <div class="blogTags">
-          {{articles.tags}}
+          <el-tag type="success" class="tags" v-for="(item,index) in articles.tags" :key="index">{{item}}</el-tag>
         </div>
         <div class="saveContent">
           <div>注意：本文为杨小花原创，转载记得联系我哦~</div>
@@ -24,20 +24,12 @@
           <div class="pre">
             <p>上一篇:</p>
             <p v-if="preNoData" class="noData">{{ preData.message }}</p>
-            <router-link
-              :to="{ path: '/blog/article', query: { aid: preData.aid } }"
-              v-else
-              >{{ preData.title }}</router-link
-            >
+            <router-link :to="{ path: '/blog/article', query: { aid: preData.aid } }" v-else>{{ preData.title }}</router-link>
           </div>
           <div class="next">
             <p>下一篇:</p>
             <p v-if="nextNoData" class="noData">{{ nextData.message }}</p>
-            <router-link
-              :to="{ path: '/blog/article', query: { aid: nextData.aid } }"
-              v-else
-              >{{ nextData.title }}</router-link
-            >
+            <router-link :to="{ path: '/blog/article', query: { aid: nextData.aid } }" v-else>{{ nextData.title }}</router-link>
           </div>
         </div>
       </div>
@@ -45,46 +37,25 @@
         <p>{{ remarkTotal }}条评论</p>
         <el-divider></el-divider>
         <div class="input_Box">
-          <el-input
-            type="textarea"
-            v-model="commentValue"
-            rows="5"
-            placeholder="给我一个评论，还你一个么么哒(๑•̀ㅂ•́)و✧"
-            @blur="getBlur"
-            @focus="getFocus"
-          >
+          <el-input type="textarea" v-model="commentValue" rows="5" placeholder="给我一个评论，还你一个么么哒(๑•̀ㅂ•́)و✧" @blur="getBlur" @focus="getFocus">
           </el-input>
           <div class="user com_item" v-show="showConfirm">
             <span>用户名：</span>
-            <el-input
-              type="text"
-              v-model="commentUser"
-              placeholder="你叫什么呀"
-            >
+            <el-input type="text" v-model="commentUser" placeholder="你叫什么呀">
             </el-input>
           </div>
           <div class="concact com_item" v-show="showConfirm">
             <span>联系方式：</span>
-            <el-input
-              type="text"
-              v-model="commentConcat"
-              placeholder="可以给一个联系方式哦"
-            >
+            <el-input type="text" v-model="commentConcat" placeholder="可以给一个联系方式哦">
             </el-input>
           </div>
           <div class="btns com_item" v-show="showConfirm">
-            <el-button size="mini" type="primary" @click="postComment"
-              >提交</el-button
-            >
+            <el-button size="mini" type="primary" @click="postComment">提交</el-button>
           </div>
         </div>
         <el-divider v-if="remarkTotal != 0"></el-divider>
         <div class="remarkBox">
-          <div
-            class="remarkItem"
-            v-for="(item, index) in remarkData"
-            :key="index"
-          >
+          <div class="remarkItem" v-for="(item, index) in remarkData" :key="index">
             <div class="first">
               <span class="name">{{ item.nickname }}</span>
               <span class="date"> 发表于{{ item.createDate }}</span>
@@ -172,6 +143,9 @@ export default {
           );
           let content = data.content;
           data.content = marked(content);
+          let tags = data.tags;
+          tags = tags.split(",");
+          data.tags = tags;
           this.articles = data;
           document.title = data.title + "|你好，我是杨小花";
           this.showDetail = true;
@@ -191,7 +165,7 @@ export default {
           this.preData = data[0];
         })
         .catch(err => {
-          console.log(err)
+          console.log(err);
           if (err.code == "failed") {
             this.preNoData = true;
           }
@@ -206,7 +180,7 @@ export default {
           this.nextData = data[0];
         })
         .catch(err => {
-          console.log(err)
+          console.log(err);
           if (err.code == "failed") {
             this.nextNoData = true;
           }
@@ -406,8 +380,15 @@ export default {
   transform: translateY(-50%);
   border-left: 5px solid #dedede;
 }
-.blogTags{
-  height:50px;
-  line-height:50px;
+.blogTags {
+  height: 50px;
+  line-height: 50px;
 }
+.tags:nth-of-type(1){
+  margin: 0;
+}
+.tags{
+  margin-left: 10px;
+}
+
 </style>
