@@ -1,5 +1,8 @@
 <template>
   <el-header class="header">
+    <div class="left">
+      <i class="el-icon-s-fold folds"></i>
+    </div>
     <div class="userInfo">
       <div class="headerIcons">
         <i class="el-icon-search"></i>
@@ -7,17 +10,13 @@
       <div class="headerIcons">
         <i class="el-icon-message"></i>
       </div>
-      <el-dropdown trigger="click" class="users">
+      <el-dropdown trigger="click" class="users" @command="getClick">
         <div class="el-dropdown-link userAvatar">
           <div class="items">
-            <el-avatar
-              class="avatarImg"
-              :size="size"
-              :src="userInfo.avatarUrl || circleUrl"
-            ></el-avatar>
+            <el-avatar class="avatarImg" :size="size" :src="userInfo.avatarUrl || circleUrl"></el-avatar>
           </div>
           <div class="items">
-            <span class="nickname">Hi,{{ userInfo.nickname }}!</span>
+            <span class="nickname">Hi,{{ userInfo.nickname||用户 }}!</span>
           </div>
           <div class="item headerIcons">
             <i class="el-icon-arrow-down"></i>
@@ -33,20 +32,42 @@
   </el-header>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
-    let userInfo = localStorage.getItem("userInfo");
-    // console.log(userInfo);
-    userInfo = JSON.parse(userInfo);
     return {
-      userInfo,
       size: "medium",
       circleUrl: require("../assets/logo.png")
     };
   },
+  computed: {
+    ...mapState({
+      userInfo: function(state) {
+        return state.user.userInfo;
+      }
+    })
+  },
+  watch: {
+    userInfo: function(val) {}
+  },
   mounted() {},
   watch: {},
-  methods: {}
+  methods: {
+    getClick(item) {
+      switch (item) {
+        case "person":
+          this.$router.push("/dashboard/system/center");
+          break;
+        case "setting":
+          this.$router.push("/dashboard/system/setting");
+          break;
+        case "logout":
+          this.$store.dispatch("user/logout");
+          this.$router.push(`/login?redirect=${this.$route.fullPath}`);
+          break;
+      }
+    }
+  }
 };
 </script>
 <style scoped>
@@ -54,6 +75,7 @@ export default {
   width: 100%;
   height: 100px !important;
   background: #ffffff;
+  display: flex;
 }
 .userInfo {
   width: 300px;
@@ -88,5 +110,16 @@ export default {
 }
 .userAvatar {
   display: flex;
+}
+
+.left {
+  width: calc(100% - 300px);
+  height: 100px;
+}
+.left .folds {
+  font-size: 30px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>

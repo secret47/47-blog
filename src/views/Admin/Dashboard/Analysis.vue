@@ -33,7 +33,10 @@
     <div class="new">
       <div class="remark">
         <el-divider content-position="left">最新评论</el-divider>
-        <div v-for="(item,index) in remarkDate" :key="index" class="remarkItems">
+        <div v-if="noRemark" class="noData">
+          暂时没有新的评论
+        </div>
+        <div v-for="(item,index) in remarkDate" :key="index" class="remarkItems" v-else>
           <div class="leftThing">
             <span class="name">{{item.nickname}}</span> 给
             <span class="title">《{{item.title}}》</span> 留言说
@@ -41,6 +44,7 @@
           </div>
           <div class="date">{{item.createDate}}</div>
         </div>
+
       </div>
     </div>
   </div>
@@ -49,21 +53,32 @@
 import { getNewRemark } from "../../../api/system.js";
 import axios from "axios";
 import moment from "moment";
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
-      userInfo: [],
       hiText: "早上好",
       currentTime: "",
       calendar: new Date(),
-      remarkDate: []
+      remarkDate: [],
+      noRemark: true
     };
   },
+  computed: {
+    ...mapState({
+      userInfo: function(state) {
+        return state.user.userInfo;
+      }
+    })
+  },
+  watch: {
+    userInfo: function(val) {}
+  },
   mounted() {
-    this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
     this.getCurrentTime();
-    this.getPVCharts();
-    this.getMarkCharts();
+    // this.getPVCharts();
+    // this.getMarkCharts();
     this.getRemark();
   },
   methods: {
@@ -211,21 +226,23 @@ export default {
   text-align: left;
   color: #8bbabb;
 }
-.content{
-  color: #8BBABB;
+.content {
+  color: #8bbabb;
 }
-.remarkItems{
+.remarkItems {
   width: 100%;
   display: flex;
   height: 30px;
   line-height: 30px;
 }
-.date{
+.date {
   width: 140px;
   float: right;
 }
-.leftThing{
+.leftThing {
   width: calc(100% - 140px);
-
+}
+.noData {
+  font-size: 13px;
 }
 </style>

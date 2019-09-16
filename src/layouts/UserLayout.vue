@@ -9,9 +9,8 @@ export default {};
 </script>
 
 <style>
-.container {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+.container{
+  width: 100%;
+  height: 100%
 }
 </style>

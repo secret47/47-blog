@@ -3,48 +3,29 @@
     <div class="tabsBox">
       <div class="tabs">
         <ul class="tabItems">
-          <li
-            v-for="(item, index) in changeItems"
-            :key="index"
-            :class="item.class"
-            @click="changeItem(index)"
-          >
+          <li v-for="(item, index) in changeItems" :key="index" :class="item.class" @click="changeItem(index)">
             {{ item.name }}
           </li>
         </ul>
         <div class="containers">
           <section v-if="currentTab == 0">
             <div class="info">
-              <el-form
-                label-position="left"
-                label-width="80px"
-                :model="userInfo"
-                v-if="userInfo"
-              >
+              <el-form label-position="left" label-width="80px" :model="userInfo" v-if="userInfo">
                 <el-form-item class="userAvatar">
-                  <el-image
-                    :src="userInfo.avatarUrl || avatarUrl"
-                    :fit="fit"
-                    class="imgs"
-                  ></el-image>
-                  <el-upload
-                    class="avatar-uploader"
-                    action="http://127.0.0.1:3000/upload/imgs"
-                    :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
-                    :before-upload="beforeAvatarUpload"
-                  >
+                  <el-image :src="userInfo.avatarUrl || avatarUrl" :fit="fit" class="imgs"></el-image>
+                  <el-upload class="avatar-uploader" action="http://101.37.173.223:3000/upload/imgs" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                     <el-button type="primary">修改头像</el-button>
                   </el-upload>
+                </el-form-item>
+                <el-form-item label="权限">
+                  <!-- <el-input v-model="userInfo.nickname"></el-input> -->
+                  {{userInfo.roles}}
                 </el-form-item>
                 <el-form-item label="名称">
                   <el-input v-model="userInfo.nickname"></el-input>
                 </el-form-item>
                 <el-form-item label="性别">
-                  <el-radio-group
-                    v-model="userInfo.gender"
-                    @change="changeGender"
-                  >
+                  <el-radio-group v-model="userInfo.gender" @change="changeGender">
                     <el-radio :label="0">男</el-radio>
                     <el-radio :label="1">女</el-radio>
                     <el-radio :label="2">保密</el-radio>
@@ -54,24 +35,14 @@
                   <el-input v-model="userInfo.age"></el-input>
                 </el-form-item>
                 <el-form-item label="生日">
-                  <el-date-picker
-                    v-model="userInfo.birthday"
-                    type="date"
-                    placeholder="选择日期"
-                  >
+                  <el-date-picker v-model="userInfo.birthday" type="date" placeholder="选择日期">
                   </el-date-picker>
                 </el-form-item>
                 <el-form-item label="描述">
-                  <el-input
-                    type="textarea"
-                    row="3"
-                    v-model="userInfo.description"
-                  ></el-input>
+                  <el-input type="textarea" row="3" v-model="userInfo.description"></el-input>
                 </el-form-item>
                 <el-form-item>
-                  <el-button type="primary" @click="saveInfo"
-                    >保存更新</el-button
-                  >
+                  <el-button type="primary" @click="saveInfo">保存更新</el-button>
                 </el-form-item>
               </el-form>
             </div>
@@ -109,16 +80,18 @@ export default {
         }
       ],
       avatarUrl: require("../../../../assets/logo.png"),
-      currentTab: 0,
-      userInfo: {}
+      currentTab: 0
     };
   },
   watch: {},
-  computed: {},
-  mounted() {
-    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    this.userInfo = userInfo;
+  computed: {
+    ...mapState({
+      userInfo: function(state) {
+        return state.user.userInfo;
+      }
+    })
   },
+  mounted() {},
   methods: {
     //切换tab
     changeItem(num) {

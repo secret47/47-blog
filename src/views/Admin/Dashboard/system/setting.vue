@@ -6,7 +6,7 @@
           <div class="header-title">选择顶部大图（博客首页）</div>
           <el-upload
             class="avatar-uploader"
-            action="http://127.0.0.1:3000/upload/imgs"
+            action="http://101.37.173.223:3000/upload/imgs"
             :show-file-list="false"
             :on-success="uploadSuccess"
             :before-upload="beforeAvatarUpload"

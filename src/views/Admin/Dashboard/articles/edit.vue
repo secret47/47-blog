@@ -7,7 +7,7 @@
           <label class="name">封面图:</label>
           <el-upload
             class="avatar-uploader"
-            action="http://127.0.0.1:3000/upload/imgs"
+            action="http://101.37.173.223:3000/upload/imgs"
             :show-file-list="false"
             :on-success="uploadSuccess"
             :before-upload="beforeAvatarUpload"
@@ -327,6 +327,13 @@ export default {
       let data = { title, cid, author, desc, coverImg, tags, content };
       if (title == "") {
         this.$alert("标题不能为空", "提示", {
+          confirmButtonText: "确定",
+          center: true
+        });
+        return;
+      }
+      if(cid == ""){
+          this.$alert("必须要选择分类", "提示", {
           confirmButtonText: "确定",
           center: true
         });

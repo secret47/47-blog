@@ -1,4 +1,4 @@
-import request from "../util/request";
+import request from "../utils/axios"
 import axios from "axios";
 
 //更改用户资料

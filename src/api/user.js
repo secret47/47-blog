@@ -1,14 +1,11 @@
-import request from "../util/request";
+import request from "../utils/axios";
 import axios from "axios";
 
-export const login = (username, password) => {
+export const login = (data) => {
   return request({
     url: "/user/login",
     method: "post",
-    data: {
-      username,
-      password
-    }
+    data
   });
 };
 

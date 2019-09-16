@@ -1,4 +1,4 @@
-import request from "../util/request";
+import request from "../utils/axios"
 import axios from "axios";
 
 //得到所有文章

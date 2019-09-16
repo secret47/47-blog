@@ -23,7 +23,9 @@
 
         <router-view class="mainBox"> </router-view>
       </el-main>
-      <el-footer>Footer</el-footer>
+      <el-footer>
+          <div class="daily">杨小花说她辛辛苦苦敲了好几个月的代码。 —— 来自杨小花</div>
+      </el-footer>
     </el-container>
   </el-container>
 </template>
@@ -33,7 +35,7 @@ import mySide from "@/layouts/Side.vue";
 export default {
   components: {
     myHeader,
-    mySide
+    mySide,
   },
   data() {
     return {
@@ -102,5 +104,10 @@ export default {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+}
+.daily{
+  font-size: 13px;
+  line-height: 60px;
+  text-align: right
 }
 </style>

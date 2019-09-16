@@ -1,69 +1,71 @@
-import { login, getInfo,getRole } from "../../api/user";
+import { login, getInfo } from '../../api/user'
+import { setToken, getToken, removeToken, resetToken } from '../../utils/auth'
 
-const user = {
-  state: {
-    token: "",
+const state = {
+    token: getToken(),
+    roles: [],
     userInfo: [],
-    userRole:""
-  },
-  mutations: {
+}
+const mutations = {
+    set_roles: (state, roles) => {
+        state.roles = roles
+    },
     set_token: (state, token) => {
-      state.token = token;
+        state.token = token
     },
     set_info: (state, userInfo) => {
-      state.userInfo = userInfo;
-    },
-    set_role:(state,userRole) =>{
-      state.userRole = userRole
+        state.userInfo = userInfo
     }
-  },
-  actions: {
-    Login({ commit }, userInfo) {
-      const username = userInfo.username.trim();
-      return new Promise((resolve, reject) => {
-        login(username, userInfo.password)
-          .then(res => {
-            const data = res.data;
-            commit("set_token", data.token);
-            window.localStorage.setItem("uid", data.uid);
-            window.localStorage.setItem("token", data.token);
-            resolve(res);
-          })
-          .catch(err => {
-            reject(err);
-          });
-      });
+}
+const actions = {
+    login({ commit }, data) {
+        return new Promise((resolve, reject) => {
+            login(data).then(res => {
+                let { data } = res
+                commit('set_token', data.token)
+                setToken(data.token)
+                localStorage.setItem('uid', data.uid)
+                resolve()
+            }).catch(err => {
+                reject(err)
+            })
+        })
     },
-    //得到用户资料
-    GetUserInfo({ commit }, id) {
-      return new Promise((resolve, reject) => {
-        getInfo(id)
-          .then(res => {
-            const data = res.data;
-            const jsonData = JSON.stringify(data);
-            commit("set_info", jsonData);
-            window.localStorage.setItem("userInfo", jsonData);
-            resolve(res);
-          })
-          .catch(err => {
-            reject(err);
-          });
-      });
+    getInfo({ commit }, uid) {
+        return new Promise((resolve, reject) => {
+            getInfo(uid).then(res => {
+                let { data } = res
+                commit('set_roles', data.roles)
+                commit('set_info', data)
+                resolve(data)
+            }).catch(err => {
+                reject(err)
+            })
+        })
     },
-    getUserRole({commit},id){
-      return new Promise((resolve, reject) => {
-        getRole(id)
-          .then(res => {
-            console.log(res)
-            const data = res.data;
-            localStorage.setItem('role',data)
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      });
+    resetToken({ commit }) {
+        return new Promise(resolve => {
+            commit('set_token', '')
+            commit('set_roles', [])
+            removeToken()
+            resolve()
+        })
+    },
+    logout({ commit }) {
+        return new Promise((resolve, reject) => {
+            commit('set_roles', [])
+            commit('set_token', '')
+            removeToken()
+            resetToken();
+            resolve()
+        })
     }
-  }
-};
+}
 
-export default user;
+
+export default {
+    namespaced: true,
+    state,
+    mutations,
+    actions
+}

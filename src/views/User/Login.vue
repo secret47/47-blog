@@ -1,23 +1,12 @@
 <template>
   <div class="login">
-    <el-form
-      :model="form"
-      ref="form"
-      :rules="fromRules"
-      label-width="80px"
-      label-position="top"
-      class="loginBox"
-    >
+    <el-form :model="form" ref="form" :rules="fromRules" label-width="80px" label-position="top" class="loginBox">
       <div class="title">登录</div>
       <el-form-item label="用户名" prop="username">
         <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input
-          v-model="form.password"
-          show-password
-          placeholder="请输入密码"
-        >
+        <el-input v-model="form.password" show-password placeholder="请输入密码">
         </el-input>
       </el-form-item>
       <el-form-item>
@@ -30,6 +19,7 @@
   </div>
 </template>
 <script>
+import { getRole } from "../../api/user.js";
 export default {
   data() {
     return {
@@ -63,42 +53,39 @@ export default {
   },
   methods: {
     login() {
+      console.log(this.form);
       this.$store
-        .dispatch("Login", this.form)
+        .dispatch("user/login", this.form)
         .then(res => {
-          let data = res.data;
-          this.getUserInfo(data.uid);
           this.$router.push({
-            path: this.redirect || "/dashboard/analysis"
+            path: this.redirect || "/dashboard/analysis",
+            query: this.otherQuery
           });
         })
-        .catch(err => {});
-    },
-    //得到用户资料
-    getUserInfo(uid) {
-      this.$store
-        .dispatch("GetUserInfo", uid)
-        .then()
-        .catch();
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
 </script>
 <style scoped>
-#app {
-  background: linear-gradient(to right, #c9f4fd, #f7e0ce);
-}
 .login {
-  width: 400px;
-  height: 500px;
-  background: #fff;
+  width: 100%;
+  height: 100%;
+  background: #ecf4f3;
   margin: 0 auto;
-  border-radius: 10px;
 }
 .loginBox {
-  width: 320px;
-  height: 400px;
+  width: 340px;
+  height: 450px;
   margin: 0 auto;
+  position: relative;
+  background: #ffffff;
+  padding: 10px;
+  top: 50%;
+  border-radius: 10px;
+  transform: translateY(-50%);
 }
 .logBtn {
   width: 100%;
