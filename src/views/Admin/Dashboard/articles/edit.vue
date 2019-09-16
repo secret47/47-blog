@@ -131,7 +131,6 @@ import {
   getTags,
   addImg
 } from "../../../../api/articles.js";
-import { months } from "moment";
 
 export default {
   data() {

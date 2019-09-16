@@ -57,7 +57,6 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import { changeUserInfo } from "../../../../api/user";
-import moment from "moment";
 export default {
   data() {
     return {
@@ -125,7 +124,7 @@ export default {
     },
     saveInfo() {
       let userInfo = this.userInfo;
-      userInfo.birthday = moment(userInfo.birthday)
+      userInfo.birthday = this.$moment(userInfo.birthday)
         .format("YYYY-MM-DD HH:mm:ss")
         .valueOf();
       console.log(userInfo);

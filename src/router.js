@@ -37,13 +37,13 @@ export const dynamicRouter = [
       {
         path: "/dashboard/articles",
         name: "articles",
-        meta: { title: "文章管理", icon: "el-icon-menu", auth: ['admin'] },
+        meta: { title: "文章管理", icon: "el-icon-menu", auth: ['admin','user'] },
         component: { render: h => h("router-view") },
         children: [
           {
             path: "/dashboard/articles/edit",
             name: "edit",
-            meta: { title: "新建文章", auth: ['admin'] },
+            meta: { title: "新建文章", auth: ['admin', 'user'] },
             component: () =>
               import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/articles/edit.vue")
           },
@@ -60,28 +60,6 @@ export const dynamicRouter = [
             meta: { title: "分类管理", auth: ['admin'] },
             component: () =>
               import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/articles/catalogs.vue")
-          }
-        ]
-      },
-      {
-        path: "/dashboard/system",
-        name: "system",
-        meta: { title: "系统管理", icon: "el-icon-setting", auth: ['admin'] },
-        component: { render: h => h("router-view") },
-        children: [
-          {
-            path: "/dashboard/system/center",
-            name: "center",
-            meta: { title: "个人中心", auth: ['admin'] },
-            component: () =>
-              import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/system/center.vue")
-          },
-          {
-            path: "/dashboard/system/setting",
-            name: "setting",
-            meta: { title: "系统设置", auth: ['admin'] },
-            component: () =>
-              import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/system/setting.vue")
           }
         ]
       },
@@ -127,7 +105,29 @@ export const dynamicRouter = [
               import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/authTest/adminTest.vue")
           }
         ]
-      }
+      },
+      {
+        path: "/dashboard/system",
+        name: "system",
+        meta: { title: "系统管理", icon: "el-icon-setting", auth: ['admin'] },
+        component: { render: h => h("router-view") },
+        children: [
+          {
+            path: "/dashboard/system/center",
+            name: "center",
+            meta: { title: "个人中心", auth: ['admin'] },
+            component: () =>
+              import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/system/center.vue")
+          },
+          {
+            path: "/dashboard/system/setting",
+            name: "setting",
+            meta: { title: "系统设置", auth: ['admin'] },
+            component: () =>
+              import(/* webpackChunkName: "dashboard" */ "./views/Admin/Dashboard/system/setting.vue")
+          }
+        ]
+      },
     ]
   },
 ]

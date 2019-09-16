@@ -52,7 +52,6 @@
 <script>
 import { getNewRemark } from "../../../api/system.js";
 import axios from "axios";
-import moment from "moment";
 import { mapState } from "vuex";
 
 export default {
@@ -87,7 +86,7 @@ export default {
         console.log(res);
         let data = res.data;
         data.forEach(item => {
-          item.createDate = moment(data.createDate).format("MM/DD HH:mm:ss");
+          item.createDate = this.$moment(data.createDate).format("MM/DD HH:mm:ss");
         });
         this.remarkDate = data;
       });

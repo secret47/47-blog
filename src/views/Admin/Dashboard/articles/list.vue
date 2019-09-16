@@ -42,7 +42,6 @@ import {
   getArticle,
   deleteArticles
 } from "../../../../api/articles.js";
-import moment from "moment";
 export default {
   data() {
     return {
@@ -97,7 +96,7 @@ export default {
           data.forEach(element => {
             //更改一下时间格式
             let createDate = element.createDate;
-            createDate = moment(createDate).format("YYYY-MM-DD HH:mm:ss");
+            createDate = this.$moment(createDate).format("YYYY-MM-DD HH:mm:ss");
             element.createDate = createDate;
             let tags = element.tags;
             element.tagsArr = tags.split(",");
