@@ -225,7 +225,6 @@ export default {
     getTag() {
       getTags()
         .then(res => {
-          console.log(res);
           let data = res.data;
           data.forEach(element => {
             element.value = element.name;

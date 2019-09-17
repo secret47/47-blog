@@ -7,9 +7,21 @@ export const defaultRouter = [
   {
     path: '/login',
     name: 'login',
+    meta:{
+      title:"用户登录"
+    },
     hideMenu: true,
     component: () =>
       import(/* webpackChunkName: "about" */ "./views/User/Login.vue")
+  },{
+    path: '/forget',
+    name: 'forget',
+    meta:{
+      title:"忘记密码"
+    },
+    hideMenu: true,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "./views/User/forget.vue")
   }
 ]
 

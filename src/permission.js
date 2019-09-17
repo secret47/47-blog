@@ -7,8 +7,12 @@ import "nprogress/nprogress.css";
 
 const whiteList = ['/login', '/auth-redirect'];
 
+
 NProgress.start();
 router.beforeEach(async (to, from, next) => {
+    if(to.meta && to.meta.title){
+        document.title = to.meta.title + ' (ﾉ*･ω･)ﾉ 杨小花的博客管理系统'
+    }
     const hasToken = getToken()
     if (hasToken) {
         if (to.path === '/login') {

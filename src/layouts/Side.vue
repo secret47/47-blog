@@ -1,7 +1,7 @@
 <template>
   <el-aside class="aside" width='200px'>
     <div class="logo"></div>
-    <el-menu :default-active="$route.path" unique-opened v-for="(item, index) in menuData" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :key="index">
+    <el-menu unique-opened v-for="(item, index) in menuData" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :key="index">
       <template v-for="(item, index) in item.children">
         <el-submenu :index="index + 1 + ''" v-if="item.children" :key="index">
           <template slot="title">
