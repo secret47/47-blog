@@ -3,9 +3,16 @@ import store from '../store/store'
 import { MessageBox, Message } from 'element-ui'
 import { getToken } from './auth'
 
+let baseUrl;
+if (process.env.NODE_ENV == 'development') {
+    baseUrl = "http://localhost:3000/api"
+} else if (process.env.NODE_ENV == 'production') {
+    baseUrl = "http://101.37.173.223:3000/api"
+}
+
 
 let service = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: baseUrl,
     // timeout: 5000,
 })
 

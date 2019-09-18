@@ -96,7 +96,7 @@ export const getArticlesList = query => {
   return request({
     url: "/articles/getList",
     method: "get",
-    params: query
+    params:{query}
   });
 };
 

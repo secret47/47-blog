@@ -63,19 +63,10 @@ export default {
       this.$store
         .dispatch("user/login", this.form)
         .then(res => {
-          // const loading = this.$loading({
-          //   lock: true,
-          //   text: "登录中",
-          //   spinner: "el-icon-loading",
-          //   background: "rgba(0, 0, 0, 0.7)"
-          // });
-          // setTimeout(() => {
-          //   loading.close();
             this.$router.push({
               path: this.redirect || "/dashboard/analysis",
               query: this.otherQuery
             });
-          // }, 2000);
         })
         .catch(err => {
           console.log(err);
@@ -141,6 +132,7 @@ export default {
 // 输入框
 .el-input__inner {
   border: 3px solid #f0d78c;
+  webkit-box-shadow: 0 0 0 1000px white inset;
 }
 
 // 按钮
