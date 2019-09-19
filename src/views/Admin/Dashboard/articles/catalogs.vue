@@ -161,7 +161,7 @@ export default {
           delCatalog(id)
             .then(res => {
               console.log(res);
-              if (res.code == "ok") {
+              if (res.code == "200") {
                 this.$message({
                   showClose: true,
                   message: "删除分类成功！",

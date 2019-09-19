@@ -7,17 +7,17 @@ export const defaultRouter = [
   {
     path: '/login',
     name: 'login',
-    meta:{
-      title:"用户登录"
+    meta: {
+      title: "用户登录"
     },
     hideMenu: true,
     component: () =>
       import(/* webpackChunkName: "about" */ "./views/User/Login.vue")
-  },{
+  }, {
     path: '/forget',
     name: 'forget',
-    meta:{
-      title:"忘记密码"
+    meta: {
+      title: "忘记密码"
     },
     hideMenu: true,
     component: () =>
@@ -26,7 +26,7 @@ export const defaultRouter = [
 ]
 
 export default new Router({
-  mode: 'history', // 默认为'hash'
+  // mode: 'history', // 默认为'hash'
   routes: defaultRouter
 })
 
@@ -49,7 +49,7 @@ export const dynamicRouter = [
       {
         path: "/dashboard/articles",
         name: "articles",
-        meta: { title: "文章管理", icon: "el-icon-menu", auth: ['admin','user'] },
+        meta: { title: "文章管理", icon: "el-icon-menu", auth: ['admin', 'user'] },
         component: { render: h => h("router-view") },
         children: [
           {
