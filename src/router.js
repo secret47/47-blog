@@ -26,7 +26,7 @@ export const defaultRouter = [
 ]
 
 export default new Router({
-  // mode: 'history', // 默认为'hash'
+  mode: 'history', // 默认为'hash'
   routes: defaultRouter
 })
 

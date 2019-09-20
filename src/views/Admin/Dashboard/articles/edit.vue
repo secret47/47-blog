@@ -5,88 +5,33 @@
         <div class="coverImg">
           <!-- 文章封面图 -->
           <label class="name">封面图:</label>
-          <el-upload
-            class="avatar-uploader"
-            action="http://101.37.173.223:3000/upload/imgs"
-            :show-file-list="false"
-            :on-success="uploadSuccess"
-            :before-upload="beforeAvatarUpload"
-          >
-            <el-image
-              v-if="imageUrl"
-              :src="imageUrl"
-              class="avatar"
-              fit="contain"
-            ></el-image>
+          <el-upload class="avatar-uploader" action="http://101.37.173.223:3000/upload/imgs" :show-file-list="false" :on-success="uploadSuccess" :before-upload="beforeAvatarUpload">
+            <el-image v-if="imageUrl" :src="imageUrl" class="avatar" fit="contain"></el-image>
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </div>
         <label class="name">分类:</label>
-        <el-select
-          v-model="cid"
-          placeholder="请选择"
-          @change="changeCat($event)"
-        >
-          <el-option
-            v-for="item in options"
-            :key="item.id"
-            :label="item.cname"
-            :value="item.id"
-          >
+        <el-select v-model="cid" placeholder="请选择" @change="changeCat($event)">
+          <el-option v-for="item in options" :key="item.id" :label="item.cname" :value="item.id">
           </el-option>
         </el-select>
       </el-col>
       <el-col :span="16">
         <label class="name">标题:</label>
-        <el-input
-          placeholder="输入标题"
-          v-model="title"
-          maxlength="50"
-          show-word-limit
-        ></el-input>
+        <el-input placeholder="输入标题" v-model="title" maxlength="50" show-word-limit></el-input>
         <label class="name">摘要:</label>
-        <el-input
-          placeholder="输入摘要"
-          v-model="desc"
-          type="textarea"
-          :rows="3"
-          maxlength="140"
-          show-word-limit
-        ></el-input>
+        <el-input placeholder="输入摘要" v-model="desc" type="textarea" :rows="3" maxlength="140" show-word-limit></el-input>
         <label class="name">标签:</label>
         <!-- <el-input placeholder="输入标签" v-model="tags" ></el-input> -->
         <div class="tagsBox">
-          <el-tag
-            :key="tag"
-            v-for="tag in tags"
-            closable
-            :disable-transitions="false"
-            @close="handleClose(tag)"
-          >
+          <el-tag :key="tag" v-for="tag in tags" closable :disable-transitions="false" @close="handleClose(tag)">
             {{ tag }}
           </el-tag>
           <!-- <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm"> @blur="handleInputConfirm" 
           </el-input> -->
-          <el-autocomplete
-            class="input-new-tag"
-            v-if="inputVisible"
-            v-model="inputValue"
-            ref="saveTagInput"
-            size="small"
-            @keyup.enter.native="$event.target.blur"
-            :fetch-suggestions="querySearch"
-            :trigger-on-focus="false"
-            @blur="getInputData"
-            @select="handleSelect"
-          >
+          <el-autocomplete class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="$event.target.blur" :fetch-suggestions="querySearch" :trigger-on-focus="false" @blur="getInputData" @select="handleSelect">
           </el-autocomplete>
-          <el-button
-            v-else
-            class="button-new-tag"
-            size="small"
-            @click="showInput"
-            >新建标签</el-button
-          >
+          <el-button v-else class="button-new-tag" size="small" @click="showInput">新建标签</el-button>
         </div>
 
         <!-- <p class="notice">使用逗号(,)分隔，每个标签不可超过4个字，可不填</p> -->
@@ -94,24 +39,13 @@
     </el-row>
     <div class="editorBox">
       <!-- <quill-editor ref="myTextEditor" v-model="content" :options="editorOption" @blur="onEditorBlur($event)" @focus="onEditorFocus($event)" @ready="onEditorReady($event)"></quill-editor> -->
-      <mavon-editor
-        ref="md"
-        v-model="content"
-        @imgAdd="imgAdd"
-        @imgDel="imgDel"
-      />
+      <mavon-editor ref="md" v-model="content" @imgAdd="imgAdd" @imgDel="imgDel" />
     </div>
     <div class="but">
       <el-button>保存草稿</el-button>
       <el-button @click="save">发布</el-button>
     </div>
-    <el-dialog
-      title="提示"
-      center
-      :visible.sync="saveDialog"
-      width="30%"
-      :before-close="handleClosed"
-    >
+    <el-dialog title="提示" center :visible.sync="saveDialog" width="30%" :before-close="handleClosed">
       <div>
         <h1>保存成功！</h1>
       </div>
@@ -143,7 +77,6 @@ export default {
       value: "",
       title: "",
       cid: "",
-      userInfo: JSON.parse(localStorage.getItem("userInfo")),
       dynamicTags: [],
       inputVisible: false, //展示输入新标签的输入框
       saveDialog: false,
@@ -316,9 +249,8 @@ export default {
       let title = this.title; //标题
       let cid = this.cid; //分类
       let content = this.content; //内容
-      let userInfo = this.userInfo;
       let desc = this.desc;
-      let author = userInfo.nickname;
+      let uid = localStorage.getItem("uid");
       let coverImg = this.coverImg;
       let tags = this.tags; //标签
       tags = tags.toString();
@@ -330,8 +262,8 @@ export default {
         });
         return;
       }
-      if(cid == ""){
-          this.$alert("必须要选择分类", "提示", {
+      if (cid == "") {
+        this.$alert("必须要选择分类", "提示", {
           confirmButtonText: "确定",
           center: true
         });

@@ -76,20 +76,24 @@ export default {
   },
   mounted() {
     this.getCurrentTime();
-    // this.getPVCharts();
-    // this.getMarkCharts();
     this.getRemark();
   },
   methods: {
     getRemark() {
-      getNewRemark().then(res => {
-        console.log(res);
-        let data = res.data;
-        data.forEach(item => {
-          item.createDate = this.$moment(data.createDate).format("MM/DD HH:mm:ss");
+      getNewRemark()
+        .then(res => {
+          console.log(res);
+          let data = res.data;
+          data.forEach(item => {
+            item.createDate = this.$moment(data.createDate).format(
+              "MM/DD HH:mm:ss"
+            );
+          });
+          this.remarkDate = data;
+        })
+        .catch(err => {
+          console.log(err);
         });
-        this.remarkDate = data;
-      });
     },
     //得到当前的时间
     getCurrentTime() {
@@ -114,65 +118,6 @@ export default {
       }
     },
     getCurrentWeather() {},
-    getPVCharts() {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("pvChart"));
-      myChart.setOption({
-        tooltip: {},
-        xAxis: {
-          show: false,
-          type: "category",
-          boundaryGap: false,
-          data: ["周一", "周二", "周三", "周四", "周五", "周六", "周天"]
-        },
-        yAxis: {
-          show: false,
-          type: "value",
-          splitLine: {
-            show: false //不显示中间的横线
-          }
-        },
-        series: [
-          {
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: "line",
-            smooth: true,
-            areaStyle: {}
-          }
-        ]
-      });
-    },
-    getMarkCharts() {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("remarkChart"));
-      myChart.setOption({
-        tooltip: {},
-        xAxis: {
-          show: false,
-          type: "category",
-          boundaryGap: false,
-          data: ["周一", "周二", "周三", "周四", "周五", "周六", "周天"]
-        },
-        yAxis: {
-          show: false,
-          type: "value",
-          splitLine: {
-            show: false //不显示中间的横线
-          }
-        },
-        series: [
-          {
-            data: [0, 2, 3, 4, 7, 10, 20],
-            type: "line",
-            smooth: true,
-            areaStyle: {
-              color: "#3A8BFF"
-            }
-          }
-        ],
-        color: "3A8BFF"
-      });
-    }
   }
 };
 </script>
