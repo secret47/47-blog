@@ -171,7 +171,7 @@ export default {
       addCatalog(catalogs)
         .then(res => {
           console.log(res);
-          if (res.code == "ok") {
+          if (res.code == "200") {
             this.showEdit = false;
             this.$message({
               showClose: true,

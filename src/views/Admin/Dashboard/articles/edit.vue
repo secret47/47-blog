@@ -254,7 +254,7 @@ export default {
       let coverImg = this.coverImg;
       let tags = this.tags; //标签
       tags = tags.toString();
-      let data = { title, cid, author, desc, coverImg, tags, content };
+      let data = { title, cid, uid, desc, coverImg, tags, content };
       if (title == "") {
         this.$alert("标题不能为空", "提示", {
           confirmButtonText: "确定",
@@ -273,17 +273,17 @@ export default {
       let aid = this.currentId;
       console.log(aid);
       if (aid) {
-        let data = { title, cid, author, desc, coverImg, tags, content, aid };
+        let data = { title, cid, uid, desc, coverImg, tags, content, aid };
       } else {
         createArticle(data)
           .then(res => {
             console.log(res);
-            if (res.code == "ok") {
-              this.$alert("创建成功", "提示", {
+            if (res.code == "200") {
+              this.$alert("文章创建成功", "提示", {
                 confirmButtonText: "确定",
                 callback: action => {
                   this.value = "";
-                  this.content = "<h2>I am Example</h2>";
+                  this.content = "";
                   this.coverImg = "";
                   this.desc = "";
                   this.title = "";
@@ -330,7 +330,7 @@ export default {
       addImg(formdata)
         .then(res => {
           console.log(res);
-          if (res.code == "ok") {
+          if (res.code == "200") {
             let imgUrl = res.data;
             this.$refs.md.$img2Url(pos, imgUrl);
           }
