@@ -56,7 +56,6 @@ const actions = {
             commit('set_roles', [])
             commit('set_token', '')
             removeToken()
-            resetToken();
             resolve()
         })
     }

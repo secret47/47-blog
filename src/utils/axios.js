@@ -5,7 +5,8 @@ import { getToken } from './auth'
 
 let baseUrl;
 if (process.env.NODE_ENV == 'development') {
-    baseUrl = "http://localhost:3000/api"
+    // baseUrl = "http://localhost:3000/api"
+    baseUrl = "http://101.37.173.223:3000/api"
 } else if (process.env.NODE_ENV == 'production') {
     baseUrl = "http://101.37.173.223:3000/api"
 }
