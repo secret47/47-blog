@@ -14,7 +14,7 @@
     "element-ui": "^2.11.1",
     "highlight.js": "^9.15.9",
     "js-cookie": "^2.2.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "marked": "^0.7.0",
     "mavon-editor": "^2.7.5",
     "moment": "^2.24.0",
